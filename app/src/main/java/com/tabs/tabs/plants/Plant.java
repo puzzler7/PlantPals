@@ -4,9 +4,7 @@ public class Plant {
 
     private PlantType myPlantType;
     private Status myStatus;
-    private String subtitle;
-    private String personName;
-    private String[] personNotes;
+    private Profile myProfile;
     private long lastWater = 0;
     private int numberOfWaters = 0;
 
