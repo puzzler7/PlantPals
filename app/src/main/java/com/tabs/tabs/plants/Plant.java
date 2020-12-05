@@ -15,10 +15,19 @@ public class Plant {
     private static int TO_BUD = 7;
     private static int TO_FLOWER = 14;
 
-    public Plant() {
-
+    public Plant(PlantType pt, Status s, Profile p) {
+        myPlantType = pt;
+        myStatus = s;
+        myProfile = p;
     }
 
+    public Plant() {
+        this(PlantType.POPPY, Status.SEED, new Profile());
+    }
+
+    /**
+     * Call when water bucket is clicked for the plant
+     */
     public void water() {
         long currentWater = System.currentTimeMillis();
         if(currentWater - lastWater < SIXTEEN_HOURS_MILLI) return;
@@ -30,6 +39,9 @@ public class Plant {
         return;
     }
 
+    /**
+     * Call when app is opened or on a timer to update plant statuses for decay
+     */
     public void checkDecay() {
         long currentTime = System.currentTimeMillis();
         if(currentTime - lastWater > FOURTEEN_DAYS_MILLI) {
@@ -41,6 +53,30 @@ public class Plant {
                 numberOfWaters = 0;
             }
         }
+    }
+
+    public Status getStatus() {
+        return getStatus();
+    }
+
+    public Health getHealth() {
+        return myStatus.getHealth();
+    }
+
+    public Stage getStage() {
+        return myStatus.getStage();
+    }
+
+    public PlantType getPlantType() {
+        return myPlantType;
+    }
+
+    public long getLastWater() {
+        return lastWater;
+    }
+
+    public Profile getProfile() {
+        return myProfile;
     }
 
     private void checkStatusUpdate() {
