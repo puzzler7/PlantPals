@@ -1,14 +1,16 @@
-package com.tabs.tabs;
+package com.tabs.tabs.gui;
 
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.ImageView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder> {
+import com.tabs.tabs.R;
+
+public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.ViewHolder> {
 
     private String[] localDataSet;
 
@@ -17,17 +19,17 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
      * (custom ViewHolder).
      */
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private final TextView textView;
+        private final ImageView img;
 
         public ViewHolder(View view) {
             super(view);
             // Define click listener for the ViewHolder's View
 
-            textView = (TextView) view.findViewById(R.id.textView);
+            img = view.findViewById(R.id.img);
         }
 
-        public TextView getTextView() {
-            return textView;
+        public ImageView getImageView() {
+            return img;
         }
     }
 
@@ -37,7 +39,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
      * @param dataSet String[] containing the data to populate views to be used
      * by RecyclerView.
      */
-    public CustomAdapter(String[] dataSet) {
+    public PlantAdapter(String[] dataSet) {
         localDataSet = dataSet;
     }
 
@@ -57,12 +59,13 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
 
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
-        viewHolder.getTextView().setText(localDataSet[position]);
+
+        //viewHolder.getTextView().setText(localDataSet[position]);
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return localDataSet.length;
+        return 100;//localDataSet.length;
     }
 }

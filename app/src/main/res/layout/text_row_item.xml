@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="50dp"
+    android:layout_width="wrap_content"
+    android:layout_height="100dp"
     android:layout_marginLeft="10dp"
     android:layout_marginRight="10dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="10dp"
     android:gravity="center_vertical">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="15dp"
-        android:text="haha this is some default text lol"/>
+    <ImageView
+        android:id="@+id/img"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/cutecactus"
+        android:scaleType="centerCrop"
+        android:background="@color/backgroundBrown"
+        />
 </FrameLayout>
