@@ -1,6 +1,8 @@
 package com.tabs.tabs.gui;
 
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,16 +11,28 @@ import android.widget.ImageView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tabs.tabs.R;
+import com.tabs.tabs.plants.Plant;
+
+import java.util.ArrayList;
 
 public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.ViewHolder> {
 
-    private String[] localDataSet;
+    private ArrayList<Plant> plants;
+    private Context context;
+
+    public void addContext(Context c) {
+        context = c;
+    }
+
+    private Context getContext() {
+        return context;
+    }
 
     /**
      * Provide a reference to the type of views that you are using
      * (custom ViewHolder).
      */
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         private final ImageView img;
 
         public ViewHolder(View view) {
@@ -33,14 +47,8 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.ViewHolder> 
         }
     }
 
-    /**
-     * Initialize the dataset of the Adapter.
-     *
-     * @param dataSet String[] containing the data to populate views to be used
-     * by RecyclerView.
-     */
-    public PlantAdapter(String[] dataSet) {
-        localDataSet = dataSet;
+    public PlantAdapter(ArrayList<Plant> plts) {
+        plants = plts;
     }
 
     // Create new views (invoked by the layout manager)
@@ -61,11 +69,22 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.ViewHolder> 
         // contents of the view with that element
 
         //viewHolder.getTextView().setText(localDataSet[position]);
+
+        viewHolder.getImageView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), PlantFocusActivity.class);
+                //intent.putStringArrayListExtra("links", new ArrayList<>(galleryImages));
+                intent.putExtra("total", 100);
+                intent.putExtra("index", position);
+                getContext().startActivity(intent);
+            }
+        });
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return 100;//localDataSet.length;
+        return 100;//plants.size()+1; //+1 for empty pot?
     }
 }

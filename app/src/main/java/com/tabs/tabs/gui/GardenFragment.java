@@ -1,22 +1,29 @@
 package com.tabs.tabs.gui;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tabs.tabs.R;
+import com.tabs.tabs.plants.Plant;
+
+import java.util.ArrayList;
 
 public class GardenFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private GridLayoutManager layoutManager;
     private PlantAdapter adapter;
+
 
     @Override
     public View onCreateView(
@@ -43,7 +50,8 @@ public class GardenFragment extends Fragment {
         recyclerView.scrollToPosition(0);
         recyclerView.setLayoutManager(layoutManager);
 
-        adapter = new PlantAdapter(new String[]{});
+        adapter = new PlantAdapter(new ArrayList<Plant>());
+        adapter.addContext(getActivity());
         // Set CustomAdapter as the adapter for RecyclerView.
         recyclerView.setAdapter(adapter);
     }
