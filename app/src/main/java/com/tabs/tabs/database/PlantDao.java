@@ -13,6 +13,7 @@ public interface PlantDao {
     @Query("SELECT * FROM plants")
     List<PlantModel> getAll();
 
+    // TODO: maybe needs to be an int
     @Insert
     void insert(PlantModel plant);
 

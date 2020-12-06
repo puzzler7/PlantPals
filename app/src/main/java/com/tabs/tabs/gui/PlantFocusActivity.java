@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,6 +23,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.tabs.tabs.R;
+import com.tabs.tabs.plants.Health;
 import com.tabs.tabs.plants.Plant;
 
 import java.util.ArrayList;
@@ -38,12 +40,12 @@ public class PlantFocusActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.plant_focus_activity);
-
         //imageLinks = getIntent().getStringArrayListExtra("links");
         total = getIntent().getIntExtra("total", 10);
         int startIndex = getIntent().getIntExtra("index", 0);
         plantList = getIntent().getParcelableArrayListExtra("plantList");
-        System.out.println("ON FOCUS CREATE index: " + startIndex + " : " + plantList.get(3).getFileName());
+        // System.out.println("ON FOCUS CREATE index: " + startIndex + " : " + plantList.get(3).getFileName());
+        total = plantList.size();
 
         // Instantiate a ViewPager and a PagerAdapter.
         pager = findViewById(R.id.plant_pager);
@@ -51,42 +53,109 @@ public class PlantFocusActivity extends AppCompatActivity {
         pager.setAdapter(adapter);
         pager.setCurrentItem(startIndex);
 
-//        pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-//            @Override
-//            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-//                //do nothing
-//            }
-//
-//            @Override
-//            public void onPageSelected(int position) {
+
+        ImageView bobText = findViewById(R.id.bobtext);
+        ImageView bob = findViewById(R.id.bob);
+        TextView bobSimple = findViewById(R.id.simple_text);
+        Button bobYes = findViewById(R.id.yes);
+        Button bobNo = findViewById(R.id.no);
+        BobLogic.setFocusBobText(bobText, bobSimple, bobYes, bobNo);
+
+        // TODO: USE THIS FOR THE TEXT EDITING AND SUCH
+        Runnable bobReset = (() -> BobLogic.focusPageSetBob(0, ""));
+
+        final Plant[] currPlant = new Plant[1];
+        if (pager.getCurrentItem() < plantList.size()) {
+            currPlant[0] = plantList.get(pager.getCurrentItem());
+        } else {
+            currPlant[0] = new Plant();
+        }
+
+        System.out.println("THIS IS bob = " + bob);
+        bob.setOnClickListener(s -> {
+            if (currPlant[0].getHealth() == Health.WILT || currPlant[0].getHealth() == Health.SAD) {
+                BobLogic.focusPageSetBob(101, currPlant[0].getProfile().getName());
+            } else {
+                //FIXME: SCROLLING BUG AND DAY 0? edge case
+                if (currPlant[0].getLastWater() != 0) {
+                    long daysDiff = (System.currentTimeMillis() - currPlant[0].getLastWater()) / 86400000;
+                    BobLogic.focusPageSetBob(111, ("" + daysDiff));
+                }
+            }
+        });
+        bobText.setOnClickListener(s -> {
+            if (currPlant[0].getHealth() == Health.WILT || currPlant[0].getHealth() == Health.SAD) {
+                BobLogic.focusPageSetBob(101, currPlant[0].getProfile().getName());
+            } else {
+                long daysDiff = (System.currentTimeMillis() - currPlant[0].getLastWater())/86400000;
+                BobLogic.focusPageSetBob(111, ("" + daysDiff));
+            }
+        });
+
+        bobYes.setOnClickListener(s -> {
+            BobLogic.focusPageSetBob(156, "");
+            // TODO: DELETE FRIEND
+            System.out.println("---FRIEND DELETED---");
+        });
+
+        bobNo.setOnClickListener(s -> {
+            BobLogic.focusPageSetBob(161, "");
+        });
+
+        ImageButton deleter = findViewById(R.id.delete);
+        deleter.setOnClickListener(s -> {
+            BobLogic.focusPageSetBob(151, "");
+        });
+
+        ImageButton water = findViewById(R.id.water);
+        water.setOnClickListener(s -> {
+            long millisDiff = (System.currentTimeMillis() - currPlant[0].getLastWater());
+            if (millisDiff < 57600000) {
+                BobLogic.focusPageSetBob(171, "");
+            }
+        });
+
+
+
+
+        pager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+//        pager.addOnPage(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                //do nothing
+                BobLogic.focusPageSetBob(0, "");
+                if (pager.getCurrentItem() < plantList.size()) {
+                    currPlant[0] = plantList.get(pager.getCurrentItem());
+                } else {
+                    currPlant[0] = new Plant();
+                }
+            }
+
+            @Override
+            public void onPageSelected(int position) {
 //                Bundle bundle = new Bundle();
 //                bundle.putInt("image_position", position);
 //                bundle.putString("image", imageLinks.get(position));
 //                mFirebaseAnalytics.logEvent("gallery_scroll", bundle);
 //                setTitleText(position);
-//            }
-//
-//            @Override
-//            public void onPageScrollStateChanged(int state) {
-//                //do nothing
-//            }
-//        });
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                //do nothing
+            }
+        });
 
 //        title = findViewById(R.id.appbar_title);
 //        setTitleText(startIndex);
 
-        Plant currPlant;
-        if (pager.getCurrentItem() < plantList.size()) {
-            currPlant = plantList.get(pager.getCurrentItem());
-        } else {
-            currPlant = new Plant();
-        }
+
 
         ImageButton exit = findViewById(R.id.exit);
         exit.setOnClickListener(s->finish());
 
-        ImageButton water = findViewById(R.id.water);
-        water.setOnClickListener(s->currPlant.water());
+        ImageButton waterBucket = findViewById(R.id.water);
+        waterBucket.setOnClickListener(s-> currPlant[0].water());
 
         ImageButton delete = findViewById(R.id.delete);
         //delete.setOnClickListener();
