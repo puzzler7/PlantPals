@@ -22,13 +22,13 @@
             android:scaleType="centerCrop"
             android:src="@drawable/cutecactus" />
 
-        <ImageView
+        <!--ImageView
             android:id="@+id/profile_pic"
             android:src="@drawable/oval"
             android:layout_centerHorizontal="true"
             android:layout_alignBottom="@+id/plant_img"
             android:layout_width="30dp"
-            android:layout_height="30dp" />
+            android:layout_height="30dp" /-->
 
     </RelativeLayout>
 

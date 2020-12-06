@@ -35,23 +35,23 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.ViewHolder> 
      */
     public class ViewHolder extends RecyclerView.ViewHolder {
         private final ImageView img;
-        private final ImageView profileView;
+        //private final ImageView profileView;
 
         public ViewHolder(View view) {
             super(view);
             // Define click listener for the ViewHolder's View
 
             img = view.findViewById(R.id.plant_img);
-            profileView = view.findViewById(R.id.profile_pic);
+            //profileView = view.findViewById(R.id.profile_pic);
         }
 
         public ImageView getImageView() {
             return img;
         }
 
-        public ImageView getProfileView() {
-            return profileView;
-        }
+//        public ImageView getProfileView() {
+//            return profileView;
+//        }
     }
 
     public PlantAdapter(List<Plant> plts) {
@@ -94,7 +94,7 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.ViewHolder> 
         System.out.println(plants.get(position).getFileName() + ": " + id);
         viewHolder.getImageView().setImageResource(id);
 
-        viewHolder.getProfileView().setImageResource(R.drawable.oval);
+        //viewHolder.getProfileView().setImageResource(R.drawable.oval);
     }
 
     // Return the size of your dataset (invoked by the layout manager)
