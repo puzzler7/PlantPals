@@ -9,6 +9,6 @@
         android:id="@+id/FirstFragment"
         android:name="com.tabs.tabs.gui.GardenFragment"
         android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
+        tools:layout="@layout/garden_fragment_layout">
     </fragment>
 </navigation>
