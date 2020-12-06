@@ -3,11 +3,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:focusable="true">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:id="@+id/plantcard">
 
         <ImageView
@@ -17,6 +20,8 @@
             android:background="@color/backgroundBrown"
             android:layout_centerHorizontal="true"
             android:scaleType="centerCrop"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:src="@drawable/cutecactus" />
 
         <EditText
