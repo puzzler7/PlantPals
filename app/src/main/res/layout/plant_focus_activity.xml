@@ -23,17 +23,7 @@
         android:layout_marginRight="10dp"
         android:scaleType="fitXY"
         android:src="@drawable/wateringcan" />
-    <ImageButton
-        android:id="@+id/notes"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:background="@null"
-        app:layout_constraintRight_toRightOf="@id/water"
-        app:layout_constraintTop_toBottomOf="@id/water"
-        android:layout_marginTop="2dp"
-        android:src="@drawable/baseline_article_black_24dp"
-        android:scaleType="fitXY"
-        />
+
     <ImageButton
         android:id="@+id/delete"
         android:layout_width="60dp"
@@ -66,6 +56,18 @@
         android:scaleType="fitXY"
         android:src="@drawable/gardenicon" />
     <include layout="@layout/notes"/>
+
+    <ImageButton
+        android:id="@+id/notes"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@null"
+        app:layout_constraintRight_toRightOf="@id/water"
+        app:layout_constraintTop_toBottomOf="@id/water"
+        android:layout_marginTop="2dp"
+        android:src="@drawable/baseline_article_black_24dp"
+        android:scaleType="fitXY"
+        />
 
 
 

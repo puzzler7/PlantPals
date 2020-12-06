@@ -1,9 +1,11 @@
 package com.tabs.tabs.gui;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -133,9 +135,9 @@ public class PlantFocusActivity extends AppCompatActivity {
 
         ImageButton daySkip = findViewById(R.id.day_skip);
         daySkip.setOnClickListener(s -> {
-            currPlant[0].setDays(currPlant[0].getDays()+1);
+            currPlant[0].setDays(currPlant[0].getDays() + 1);
             // currPlant[0].checkDecay();
-            for(Plant p : plantList) {
+            for (Plant p : plantList) {
                 p.checkDecay();
             }
             System.out.println("\tincrement---");
@@ -144,7 +146,7 @@ public class PlantFocusActivity extends AppCompatActivity {
         });
 
         pager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-//        pager.addOnPage(new ViewPager.OnPageChangeListener() {
+            //        pager.addOnPage(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 //do nothing
@@ -178,9 +180,8 @@ public class PlantFocusActivity extends AppCompatActivity {
 //        setTitleText(startIndex);
 
 
-
         ImageButton exit = findViewById(R.id.exit);
-        exit.setOnClickListener(s->{
+        exit.setOnClickListener(s -> {
             BobLogic.mainDisappear();
             finish();
         });
@@ -192,32 +193,44 @@ public class PlantFocusActivity extends AppCompatActivity {
         //delete.setOnClickListener();
 
         ImageButton notes = findViewById(R.id.notes);
-        notes.setOnClickListener(s->{
+        notes.setOnClickListener(s -> {
             final Plant thisPlant;
+            ConstraintLayout notesLayout = findViewById(R.id.notes_layout);
+            EditText editText = notesLayout.findViewById(R.id.notes_text);
+
             if (pager.getCurrentItem() < plantList.size()) {
                 thisPlant = plantList.get(pager.getCurrentItem());
             } else {
                 thisPlant = new Plant();
             }
-            ConstraintLayout notesLayout = findViewById(R.id.notes_layout);
-            TextView title = notesLayout.findViewById(R.id.notes_title);
-            title.setText(String.format("Notes on %s:", thisPlant.getProfile().getName()));
-            EditText editText = notesLayout.findViewById(R.id.notes_text);
-            if (thisPlant.getProfile().getNotes().size() == 0) {
-                thisPlant.getProfile().addNote("");
-            }
-            editText.setText(thisPlant.getProfile().getNotes().get(0));
-            if(editText.requestFocus()) {
-                getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-            }
-            notesLayout.setVisibility(View.VISIBLE);
-            editText.setOnFocusChangeListener((v, hasFocus)-> {
-                if (!hasFocus) {
-                    thisPlant.getProfile().getNotes().set(0, editText.getText().toString());
-                    getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-                    notesLayout.setVisibility(View.GONE);
+
+            if (notesLayout.getVisibility() == View.VISIBLE) {
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(notesLayout.getWindowToken(), 0);
+
+                notesLayout.setVisibility(View.GONE);
+                thisPlant.getProfile().getNotes().set(0, editText.getText().toString());
+            } else { // not visible
+
+                TextView title = notesLayout.findViewById(R.id.notes_title);
+                title.setText(String.format("Notes on %s:", thisPlant.getProfile().getName()));
+
+                if (thisPlant.getProfile().getNotes().size() == 0) {
+                    thisPlant.getProfile().addNote("");
                 }
-            });
+                editText.setText(thisPlant.getProfile().getNotes().get(0));
+                if (editText.requestFocus()) {
+                    getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+                }
+                notesLayout.setVisibility(View.VISIBLE);
+                editText.setOnFocusChangeListener((v, hasFocus) -> {
+                    if (!hasFocus) {
+                        thisPlant.getProfile().getNotes().set(0, editText.getText().toString());
+                        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+                        notesLayout.setVisibility(View.GONE);
+                    }
+                });
+            }
         });
 
     }
