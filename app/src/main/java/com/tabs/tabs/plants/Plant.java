@@ -38,6 +38,14 @@ public class Plant implements Parcelable {
         return days;
     }
 
+    public int getNumberOfWaters() {
+        return numberOfWaters;
+    }
+
+    public void setNumberOfWaters(int numWaters) {
+        numberOfWaters = numWaters;
+    }
+
     //////Parcel
     protected Plant(Parcel in) {
         /**

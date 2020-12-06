@@ -14,7 +14,7 @@
         android:id="@+id/plantcard">
 
         <ImageView
-            android:id="@+id/img"
+            android:id="@+id/plant_img"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/backgroundBrown"
@@ -26,7 +26,7 @@
             android:id="@+id/profile_pic"
             android:src="@drawable/oval"
             android:layout_centerHorizontal="true"
-            android:layout_alignBottom="@+id/img"
+            android:layout_alignBottom="@+id/plant_img"
             android:layout_width="30dp"
             android:layout_height="30dp" />
 
