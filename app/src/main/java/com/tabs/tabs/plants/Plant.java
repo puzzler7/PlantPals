@@ -111,7 +111,7 @@ public class Plant implements Parcelable {
             if(myStatus.getHealth() == Health.HEALTHY) {
                 myStatus.setHealth(Health.WILT);
                 numberOfWaters = 0;
-            } else if(myStatus.getHealth() == Health.WILT) {
+            } else if (myStatus.getHealth() == Health.WILT) {
                 if (myStatus.getStage() == Stage.BUD || myStatus.getStage() == Stage.FLOWER) {
                     myStatus.setHealth(Health.SAD);
                     numberOfWaters = 0;
@@ -149,13 +149,13 @@ public class Plant implements Parcelable {
     }
 
     private void checkStatusUpdate() {
-        if(myStatus.getHealth() == Health.SAD) {
-            if(numberOfWaters > 0) {
+        if (myStatus.getHealth() == Health.SAD) {
+            if (numberOfWaters > 0) {
                 numberOfWaters = 0;
                 myStatus.setHealth(Health.WILT);
             }
-        } else if(myStatus.getHealth() == Health.WILT)  {
-            if(numberOfWaters > 0) {
+        } else if (myStatus.getHealth() == Health.WILT) {
+            if (numberOfWaters > 0) {
                 numberOfWaters = 0;
                 myStatus.setHealth(Health.HEALTHY);
             }
@@ -166,7 +166,7 @@ public class Plant implements Parcelable {
     }
 
     private void checkIterateGrowth() {
-        switch(myStatus.getStage()) {
+        switch (myStatus.getStage()) {
             case SEED:
                 if (numberOfWaters >= TO_SPROUT) {
                     myStatus.setStage(Stage.SPROUT);
@@ -180,13 +180,13 @@ public class Plant implements Parcelable {
                 }
                 break;
             case SAPLING:
-                if(numberOfWaters >= TO_BUD) {
+                if (numberOfWaters >= TO_BUD) {
                     myStatus.setStage(Stage.BUD);
                     numberOfWaters = 0;
                 }
                 break;
             case BUD:
-                if(numberOfWaters >= TO_FLOWER) {
+                if (numberOfWaters >= TO_FLOWER) {
                     myStatus.setStage(Stage.FLOWER);
                     numberOfWaters = 0;
                 }

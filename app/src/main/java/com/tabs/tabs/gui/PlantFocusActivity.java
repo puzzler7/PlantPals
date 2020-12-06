@@ -70,8 +70,11 @@ public class PlantFocusActivity extends AppCompatActivity {
 //        title = findViewById(R.id.appbar_title);
 //        setTitleText(startIndex);
 
-//        ImageButton exit = findViewById(R.id.exit);
-//        exit.setOnClickListener(s->finish());
+        ImageButton exit = findViewById(R.id.exit);
+        exit.setOnClickListener(s->finish());
+
+        ImageButton water = findViewById(R.id.water);
+
     }
 
 //    private void setTitleText(int pos) {
@@ -88,7 +91,7 @@ public class PlantFocusActivity extends AppCompatActivity {
         @NonNull
         @Override
         public Fragment createFragment(int position) {
-            return new PlantFocusFragment(new Plant());
+            return new PlantFocusFragment(null);//new Plant());
         }
 
         @Override

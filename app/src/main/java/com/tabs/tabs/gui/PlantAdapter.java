@@ -14,10 +14,11 @@ import com.tabs.tabs.R;
 import com.tabs.tabs.plants.Plant;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.ViewHolder> {
 
-    private ArrayList<Plant> plants;
+    private List<Plant> plants;
     private Context context;
 
     public void addContext(Context c) {
@@ -47,7 +48,7 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.ViewHolder> 
         }
     }
 
-    public PlantAdapter(ArrayList<Plant> plts) {
+    public PlantAdapter(List<Plant> plts) {
         plants = plts;
     }
 
@@ -75,7 +76,7 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.ViewHolder> 
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), PlantFocusActivity.class);
                 //intent.putStringArrayListExtra("links", new ArrayList<>(galleryImages));
-                intent.putExtra("total", 100);
+                intent.putExtra("total", getItemCount());
                 intent.putExtra("index", position);
                 getContext().startActivity(intent);
             }
@@ -85,6 +86,6 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.ViewHolder> 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return 100;//plants.size()+1; //+1 for empty pot?
+        return plants.size(); //+1 for empty pot?
     }
 }

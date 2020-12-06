@@ -17,6 +17,7 @@ import com.tabs.tabs.R;
 import com.tabs.tabs.plants.Plant;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class GardenFragment extends Fragment {
 
@@ -24,12 +25,21 @@ public class GardenFragment extends Fragment {
     private GridLayoutManager layoutManager;
     private PlantAdapter adapter;
 
+    private static boolean init = false;
+    private static List<Plant> plants;
 
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
+        if (!init) {
+            init = true;
+            plants = new ArrayList<>();
+            for (int i = 0; i < 10; i++) {
+                plants.add(new Plant());
+            }
+        }
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_first, container, false);
     }
@@ -50,7 +60,7 @@ public class GardenFragment extends Fragment {
         recyclerView.scrollToPosition(0);
         recyclerView.setLayoutManager(layoutManager);
 
-        adapter = new PlantAdapter(new ArrayList<Plant>());
+        adapter = new PlantAdapter(plants);
         adapter.addContext(getActivity());
         // Set CustomAdapter as the adapter for RecyclerView.
         recyclerView.setAdapter(adapter);
