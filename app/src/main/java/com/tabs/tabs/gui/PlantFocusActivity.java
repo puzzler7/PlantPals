@@ -23,6 +23,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.tabs.tabs.R;
+import com.tabs.tabs.database.MockDatabase;
 import com.tabs.tabs.plants.Health;
 import com.tabs.tabs.plants.Plant;
 
@@ -43,9 +44,9 @@ public class PlantFocusActivity extends AppCompatActivity {
         //imageLinks = getIntent().getStringArrayListExtra("links");
         total = getIntent().getIntExtra("total", 10);
         int startIndex = getIntent().getIntExtra("index", 0);
-        plantList = getIntent().getParcelableArrayListExtra("plantList");
+        //plantList = getIntent().getParcelableArrayListExtra("plantList");
+        plantList = MockDatabase.getPlants();
         // System.out.println("ON FOCUS CREATE index: " + startIndex + " : " + plantList.get(3).getFileName());
-        total = plantList.size();
 
         // Instantiate a ViewPager and a PagerAdapter.
         pager = findViewById(R.id.plant_pager);
@@ -94,8 +95,11 @@ public class PlantFocusActivity extends AppCompatActivity {
 
         bobYes.setOnClickListener(s -> {
             BobLogic.focusPageSetBob(156, "");
-            // TODO: DELETE FRIEND
-            System.out.println("---FRIEND DELETED---");
+            if (pager.getCurrentItem() < plantList.size()) {
+                plantList.remove(pager.getCurrentItem());
+                System.out.println("---FRIEND DELETED---");
+            }
+            finish();
         });
 
         bobNo.setOnClickListener(s -> {
@@ -114,9 +118,6 @@ public class PlantFocusActivity extends AppCompatActivity {
                 BobLogic.focusPageSetBob(171, "");
             }
         });
-
-
-
 
         pager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
 //        pager.addOnPage(new ViewPager.OnPageChangeListener() {
@@ -189,6 +190,12 @@ public class PlantFocusActivity extends AppCompatActivity {
             });
         });
 
+    }
+
+    @Override
+    public void finish() {
+        GardenFragment.notifyDataChange();
+        super.finish();
     }
 
 //    private void setTitleText(int pos) {
