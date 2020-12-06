@@ -8,11 +8,13 @@ public class Plant implements Parcelable {
     private PlantType myPlantType;
     private Status myStatus;
     private Profile myProfile;
+    private static int days = 0;
     private long lastWater = 0;
     private int numberOfWaters = 0;
 
     private static long SIXTEEN_HOURS_MILLI = 57600000;
     private static long FOURTEEN_DAYS_MILLI = 1209600000;
+    private static long ONE_DAY_MILLI = 86400000;
     private static int TO_SPROUT = 2;
     private static int TO_SAPLING = 5;
     private static int TO_BUD = 7;
@@ -28,6 +30,14 @@ public class Plant implements Parcelable {
         this(PlantType.POPPY, Status.SEED, new Profile());
     }
 
+    public static void setDays(int d) {
+        days = d;
+    }
+
+    public static int getDays() {
+        return days;
+    }
+
     //////Parcel
     protected Plant(Parcel in) {
         /**
@@ -37,7 +47,13 @@ public class Plant implements Parcelable {
          * dest.writeString(myProfile.writeProfile());
          */
         myPlantType = PlantType.valueOf(in.readString());
-        myStatus = Status.valueOf(in.readString()); //fix if bad
+//        myStatus = Status.valueOf(in.readString()); //fix if bad
+        myStatus = Status.SEED;
+        Stage newStage = Stage.valueOf(in.readString());
+        Health newHealth = Health.valueOf(in.readString());
+        myStatus.setStage(newStage);
+        myStatus.setHealth(newHealth);
+
         myProfile = Profile.readProfile(in.readString()); //___ is grrrr
         lastWater = in.readLong();
         numberOfWaters = in.readInt();
@@ -46,9 +62,9 @@ public class Plant implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(myPlantType.getPlantType());
-        dest.writeString(myStatus.name());
-//        dest.writeString(myStatus.getStage().getStage());
-//        dest.writeString(myStatus.getHealth().getHealth());
+//        dest.writeString(myStatus.name());
+        dest.writeString(myStatus.getStage().getStage());
+        dest.writeString(myStatus.getHealth().getHealth());
         dest.writeString(myProfile.writeProfile());
         dest.writeLong(lastWater);
         dest.writeInt(numberOfWaters);
@@ -76,7 +92,7 @@ public class Plant implements Parcelable {
      * Call when water bucket is clicked for the plant
      */
     public void water() {
-        long currentWater = System.currentTimeMillis();
+        long currentWater = System.currentTimeMillis() + days * ONE_DAY_MILLI;
         if(currentWater - lastWater < SIXTEEN_HOURS_MILLI) return;
         else {
             lastWater = currentWater;
@@ -90,7 +106,7 @@ public class Plant implements Parcelable {
      * Call when app is opened or on a timer to update plant statuses for decay
      */
     public void checkDecay() {
-        long currentTime = System.currentTimeMillis();
+        long currentTime = System.currentTimeMillis() + days * ONE_DAY_MILLI;
         if(currentTime - lastWater > FOURTEEN_DAYS_MILLI && myStatus.getStage() != Stage.SEED) {
             if(myStatus.getHealth() == Health.HEALTHY) {
                 myStatus.setHealth(Health.WILT);

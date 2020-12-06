@@ -2,17 +2,17 @@ package com.tabs.tabs.plants;
 
 public enum Status {
 
-    SEED("seed", "healthy"),
-    SPROUT("sprout", "healthy"),
-    SPROUT_WILT("sprout", "wilt"),
-    SAPLING("sapling", "healthy"),
-    SAPLING_WILT("sapling", "wilt"),
-    BUD("bud", "healthy"),
-    BUD_WILT("bud", "wilt"),
-    BUD_SAD("bud", "sad"),
-    FLOWER("flower", "healthy"),
-    FLOWER_WILT("flower", "wilt"),
-    FLOWER_SAD("flower", "sad");
+    SEED("SEED", "HEALTHY"),
+    SPROUT("SPROUT", "HEALTHY"),
+    SPROUT_WILT("SPROUT", "WILT"),
+    SAPLING("SAPLING", "HEALTHY"),
+    SAPLING_WILT("SAPLING", "WILT"),
+    BUD("BUD", "HEALTHY"),
+    BUD_WILT("BUD", "WILT"),
+    BUD_SAD("BUD", "SAD"),
+    FLOWER("FLOWER", "HEALTHY"),
+    FLOWER_WILT("FLOWER", "WILT"),
+    FLOWER_SAD("FLOWER", "SAD");
 
     private Stage stage;
     private Health health;

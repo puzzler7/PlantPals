@@ -1,11 +1,11 @@
 package com.tabs.tabs.plants;
 
 public enum Stage {
-    SEED("seed"),
-    SPROUT("sprout"),
-    SAPLING("sapling"),
-    BUD("bud"),
-    FLOWER("flower");
+    SEED("SEED"),
+    SPROUT("SPROUT"),
+    SAPLING("SAPLING"),
+    BUD("BUD"),
+    FLOWER("FLOWER");
 
     private String stage;
 

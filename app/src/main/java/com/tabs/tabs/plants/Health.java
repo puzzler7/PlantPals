@@ -1,9 +1,9 @@
 package com.tabs.tabs.plants;
 
 public enum Health {
-    WILT("wilt"),
-    SAD("sad"),
-    HEALTHY("healthy");
+    WILT("WILT"),
+    SAD("SAD"),
+    HEALTHY("HEALTHY");
 
     private String health;
 
