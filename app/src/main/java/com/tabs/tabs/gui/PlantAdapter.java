@@ -90,6 +90,9 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.ViewHolder> 
         viewHolder.getImageView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (BobLogic.pageNum == 1 && BobLogic.convoNum != 0) {
+                    return;
+                }
                 Intent intent = new Intent(getContext(), PlantFocusActivity.class);
 //                intent.putStringArrayListExtra("links", new ArrayList<>(galleryImages));
                 intent.putExtra("total", getItemCount());

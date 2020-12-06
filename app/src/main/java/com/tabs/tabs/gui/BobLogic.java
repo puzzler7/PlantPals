@@ -14,8 +14,8 @@ import java.util.List;
 
 public class BobLogic {
 
-    private static int pageNum; // 1 if on main garden, 2 if on focus
-    private static int convoNum;
+    public static int pageNum; // 1 if on main garden, 2 if on focus
+    public static int convoNum;
     private static Context context;
     private static View mainBobText;
     private static View focusBobText;
