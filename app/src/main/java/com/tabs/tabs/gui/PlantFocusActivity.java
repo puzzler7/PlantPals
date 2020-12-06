@@ -79,6 +79,10 @@ public class PlantFocusActivity extends AppCompatActivity {
         exit.setOnClickListener(s->finish());
 
         ImageButton water = findViewById(R.id.water);
+        water.setOnClickListener(s->plantList.get(pager.getCurrentItem()).water());
+
+        ImageButton delete = findViewById(R.id.delete);
+        //delete.setOnClickListener();
 
     }
 
