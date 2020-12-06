@@ -1,7 +1,7 @@
 package com.tabs.tabs.plants;
 
 public class Status {
-    
+
 //    EMPTY_HEALTHY("EMPTY", "HEALTHY"),
 //    SEED_HEALTHY("SEED", "HEALTHY"),
 //    SPROUT_HEALTHY("SPROUT", "HEALTHY"),

@@ -84,7 +84,7 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.ViewHolder> 
 //                intent.putStringArrayListExtra("links", new ArrayList<>(galleryImages));
 //                intent.putExtra("total", getItemCount());
                 intent.putParcelableArrayListExtra("plantList", new ArrayList<>(plants));
-                System.out.println("\t On click first 3:" +  plants.get(0).getFileName() + " " + plants.get(1).getFileName() + " " + plants.get(2).getFileName());
+//                System.out.println("\t On click first 3:" +  plants.get(0).getFileName() + " " + plants.get(1).getFileName() + " " + plants.get(2).getFileName());
                 intent.putExtra("index", position);
                 getContext().startActivity(intent);
             }

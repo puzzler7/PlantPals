@@ -75,7 +75,7 @@ public class Plant implements Parcelable {
         myProfile = Profile.readProfile(in.readString()); //___ is grrrr
         lastWater = in.readLong();
         numberOfWaters = in.readInt();
-        System.out.println("\tread from parcel = " + getFileName());
+//        System.out.println("\tread from parcel = " + getFileName());
     }
 
     @Override
@@ -87,7 +87,7 @@ public class Plant implements Parcelable {
         dest.writeString(myProfile.writeProfile());
         dest.writeLong(lastWater);
         dest.writeInt(numberOfWaters);
-        System.out.println("\twrite to parcel: " + getFileName());
+//        System.out.println("\twrite to parcel: " + getFileName());
     }
 
     @Override

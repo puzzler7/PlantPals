@@ -30,7 +30,7 @@ public class PlantFocusFragment extends Fragment {
         ImageView prof = rootView.findViewById(R.id.profile_pic);
 
 //        img.setImageResource(getContext().getResources().getIdentifier("cutecactus", "drawable", getContext().getPackageName()));
-        System.out.println("MY FRAG FILENAME IS " + plant.getFileName());
+//        System.out.println("MY FRAG FILENAME IS " + plant.getFileName());
 
         img.setImageResource(getContext().getResources().getIdentifier(plant.getFileName(), "drawable", getContext().getPackageName()));
         name.setText(plant.getProfile().getName());
