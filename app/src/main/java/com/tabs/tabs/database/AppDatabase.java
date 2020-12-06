@@ -10,7 +10,7 @@ package com.tabs.tabs.database;
 import androidx.room.Database;
 import androidx.room.RoomDatabase;
 
-@Database(entities = {PlantModel.class}, version = 1)
+@Database(entities = {PlantModel.class}, version = 2)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract PlantDao PlantDao();
 }

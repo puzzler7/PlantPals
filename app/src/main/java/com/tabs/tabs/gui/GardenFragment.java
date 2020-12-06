@@ -1,5 +1,6 @@
 package com.tabs.tabs.gui;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -48,6 +49,7 @@ public class GardenFragment extends Fragment {
 
     public static int NUM_COLUMNS = 3;
 
+    @SuppressLint("NewApi")
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
@@ -57,10 +59,11 @@ public class GardenFragment extends Fragment {
             init = true;
             plants = MockDatabase.getPlants();
             plants.clear();
-            AppDatabase db = Room.databaseBuilder(getActivity().getApplicationContext(), AppDatabase.class, "plant_db").allowMainThreadQueries().build();
+            AppDatabase db = Room.databaseBuilder(getActivity().getApplicationContext(), AppDatabase.class, "plant_db").allowMainThreadQueries().fallbackToDestructiveMigration().build();
             for(PlantModel pm : db.PlantDao().getAll()) {
                 plants.add(PlantHelper.makePlant(pm));
             }
+            db.close();
             //fake plant
             if (plants.size() <= 0) { // make fake plants if empty
                 for (int i = 0; i < 10; i++) {

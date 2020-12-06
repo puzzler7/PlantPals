@@ -36,5 +36,8 @@ public class PlantModel {
 
     @ColumnInfo(name = "last_watered_datetime")
     public long last_watered;
+
+    @ColumnInfo(name = "days_since_last_watered")
+    public int last_watered_in_days;
 }
 

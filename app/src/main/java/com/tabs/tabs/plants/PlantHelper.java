@@ -22,7 +22,7 @@ public class PlantHelper {
      */
 
     public static Plant makePlant(PlantModel pm) {
-        return new Plant(pm.id, PlantType.valueOf(pm.type), new Status(pm.stage, pm.health), makeProfile(pm.name, pm.nickname, pm.notes), pm.creation, pm.last_watered, pm.droplets);
+        return new Plant(pm.id, pm.last_watered_in_days, PlantType.valueOf(pm.type), new Status(pm.stage, pm.health), makeProfile(pm.name, pm.nickname, pm.notes), pm.creation, pm.last_watered, pm.droplets);
     }
 
     private static Profile makeProfile(String name, String subtitle, String notes) {

@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onStop() {
-        AppDatabase db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "plant_db").allowMainThreadQueries().build();
+        AppDatabase db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "plant_db").allowMainThreadQueries().fallbackToDestructiveMigration().build();
         db.PlantDao().deleteAll();
         for (int i = 0; i < MockDatabase.getPlants().size(); i++) {
             Plant p = MockDatabase.getPlants().get(i);
@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
             pm.id = i+1;
             db.PlantDao().insert(pm);
         }
+        db.close();
         super.onStop();
     }
 
