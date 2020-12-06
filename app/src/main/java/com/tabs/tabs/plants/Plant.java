@@ -3,19 +3,23 @@ package com.tabs.tabs.plants;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.tabs.tabs.database.PlantModel;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.UUID;
+
 public class Plant implements Parcelable {
 
-    private int uid; //TODO: UID CALCULATION?
-        //TODO: GETTERS AND SETTERS FOR WHEN CREATE
+    private int uid;
     private PlantType myPlantType;
     private Status myStatus;
     private Profile myProfile;
-    private long whenCreated = 0;       //TODO: need to actually set this to currentTime on init
-        //TODO: GETTERS AND SETTERS FOR WHEN CREATE
-    private long lastWater = 0;         //TODO: need to actually set this to currentTime on init
+    private long whenCreated = 0;
+    private long lastWater = 0;
     private int numberOfWaters = 0;
 
-    //For Debug Purposes
+    // For Debug Purposes
     private static int days = 0;
 
     private static long SIXTEEN_HOURS_MILLI = 57600000;
@@ -26,17 +30,47 @@ public class Plant implements Parcelable {
     private static int TO_BUD = 7;
     private static int TO_FLOWER = 14;
 
-    //TODO: INIT CONSTRUCTOR VS. LOAD/RECREATE CONSTRUCTOR
+    // TODO: INIT CONSTRUCTOR VS. LOAD/RECREATE CONSTRUCTOR
+
+    // CONSTRUCTOR FROM THE DATABASE
+
+    /*
+    public Plant(int id, PlantType pt, Status s, Profile p, long createdAt, long lastWater, int numberOfWaters) {
+        uid = id;
+        myPlantType = pt;
+        myStatus = s;
+        myProfile = p;
+        whenCreated = createdAt;
+        this.lastWater = lastWater;
+        this.numberOfWaters = numberOfWaters;
+    }*/
 
     public Plant(PlantType pt, Status s, Profile p) {
         myPlantType = pt;
         myStatus = s;
         myProfile = p;
+        whenCreated = System.currentTimeMillis();
+        makeUID();
     }
 
     public Plant() {
         this(PlantType.POPPY, new Status(Stage.EMPTY.getStage(), Health.HEALTHY.getHealth()), new Profile());
 //        this(PlantType.POPPY, Status.FLOWER, new Profile());
+    }
+
+    // TODO: fix myStatus
+    public Plant makePlant(PlantModel pm) {
+
+        uid = pm.id;
+        myStatus = Status.SEED;
+        myStatus.setHealth(Health.valueOf(pm.status));
+        myStatus.setStage(Stage.valueOf(pm.stage));
+
+        myProfile = makeProfile(pm.name, pm.nickname, pm.notes);
+        lastWater = pm.last_watered;
+        numberOfWaters = pm.droplets;
+
+        return this;
     }
 
     public static void setDays(int d) {
@@ -63,7 +97,8 @@ public class Plant implements Parcelable {
          * dest.writeString(myStatus.getHealth().getHealth());
          * dest.writeString(myProfile.writeProfile());
          */
-        //TODO: ADD UID, WHEN CREATED
+
+        uid = in.readInt();
         myPlantType = PlantType.valueOf(in.readString());
         myStatus = new Status(Stage.SEED.getStage(), Health.HEALTHY.getHealth());
         Stage newStage = Stage.valueOf(in.readString());
@@ -73,6 +108,7 @@ public class Plant implements Parcelable {
 //        System.out.println("myStatus = " + myStatus.getFilename());
 
         myProfile = Profile.readProfile(in.readString()); //___ is grrrr
+        whenCreated = in.readLong();
         lastWater = in.readLong();
         numberOfWaters = in.readInt();
 //        System.out.println("\tread from parcel = " + getFileName());
@@ -80,11 +116,12 @@ public class Plant implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        //TODO: ADD UID, WHEN CREATED
+        dest.writeInt(uid);
         dest.writeString(myPlantType.getPlantType());
         dest.writeString(myStatus.getStage().getStage());
         dest.writeString(myStatus.getHealth().getHealth());
         dest.writeString(myProfile.writeProfile());
+        dest.writeLong(whenCreated);
         dest.writeLong(lastWater);
         dest.writeInt(numberOfWaters);
 //        System.out.println("\twrite to parcel: " + getFileName());
@@ -169,6 +206,14 @@ public class Plant implements Parcelable {
         return myProfile;
     }
 
+    public int getUID() {
+        return uid;
+    }
+
+    public long getWhenCreated() {
+        return whenCreated;
+    }
+
     private void checkStatusUpdate() {
         if (myStatus.getHealth() == Health.SAD) {
             if (numberOfWaters > 0) {
@@ -217,5 +262,13 @@ public class Plant implements Parcelable {
                 break;
         }
         return;
+    }
+
+    private void makeUID() {
+        uid = (int) (UUID.randomUUID().getLeastSignificantBits() & 0x00000000FFFFFFFF);
+    }
+
+    private Profile makeProfile(String name, String subtitle, String notes) {
+        return new Profile(name, subtitle, Arrays.asList(notes.split("___")));
     }
 }
