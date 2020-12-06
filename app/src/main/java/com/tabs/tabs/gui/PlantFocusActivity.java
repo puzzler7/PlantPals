@@ -90,7 +90,8 @@ public class PlantFocusActivity extends AppCompatActivity {
                 if ((currPlant[0].getLastWater() % 86400000) == 0) {
                     BobLogic.focusPageSetBob(121, currPlant[0].getProfile().getName());
                 } else {
-                    long daysDiff = (System.currentTimeMillis() - currPlant[0].getLastWater()) / 86400000;
+//                    long daysDiff = (System.currentTimeMillis() - currPlant[0].getWhenCreated()) / 86400000 + currPlant[0].getDays();
+                    long daysDiff = currPlant[0].getDaysOld();
                     BobLogic.focusPageSetBob(111, ("" + daysDiff));
                 }
             }

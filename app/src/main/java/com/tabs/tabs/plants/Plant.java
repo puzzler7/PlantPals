@@ -50,7 +50,7 @@ public class Plant implements Parcelable {
         myPlantType = pt;
         myStatus = s;
         myProfile = p;
-        whenCreated = System.currentTimeMillis();
+        whenCreated = System.currentTimeMillis() + days * ONE_DAY_MILLI;
         makeUID();
         System.out.println(p.getName() + ": " + s.getHealth());
     }
@@ -216,6 +216,12 @@ public class Plant implements Parcelable {
     public long getMillsSinceWatered() {
         long currentTime = System.currentTimeMillis() + days * ONE_DAY_MILLI;
         return (currentTime - lastWater);
+    }
+
+    public long getDaysOld() {
+        long currentTime = System.currentTimeMillis() + days * ONE_DAY_MILLI;
+        return (currentTime - whenCreated)/ONE_DAY_MILLI;
+//        return(System.currentTimeMillis() - currPlant[0].getWhenCreated()) / 86400000 + currPlant[0].getDays()
     }
 
     public Status getStatus() {
