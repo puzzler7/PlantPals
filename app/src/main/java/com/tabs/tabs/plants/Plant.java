@@ -5,12 +5,16 @@ import android.os.Parcelable;
 
 public class Plant implements Parcelable {
 
+    private int uid;
     private PlantType myPlantType;
     private Status myStatus;
     private Profile myProfile;
-    private static int days = 0;
-    private long lastWater = 0;
+    private long whenCreated = 0;       //need to actually set this to currentTime on init
+    private long lastWater = 0;         //need to actually set this to currentTime on init
     private int numberOfWaters = 0;
+
+    //Debug
+    private static int days = 0;
 
     private static long SIXTEEN_HOURS_MILLI = 57600000;
     private static long FOURTEEN_DAYS_MILLI = 1209600000;
@@ -19,6 +23,8 @@ public class Plant implements Parcelable {
     private static int TO_SAPLING = 5;
     private static int TO_BUD = 7;
     private static int TO_FLOWER = 14;
+
+
 
     public Plant(PlantType pt, Status s, Profile p) {
         myPlantType = pt;
@@ -129,7 +135,7 @@ public class Plant implements Parcelable {
     }
 
     public Status getStatus() {
-        return getStatus();
+        return myStatus;
     }
 
     public Health getHealth() {
