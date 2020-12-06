@@ -55,23 +55,37 @@ public class Plant implements Parcelable {
 
     public Plant() {
         this(PlantType.POPPY, new Status(Stage.EMPTY.getStage(), Health.HEALTHY.getHealth()), new Profile());
-//        this(PlantType.POPPY, Status.FLOWER, new Profile());
     }
 
     // TODO: fix myStatus
     public Plant makePlant(PlantModel pm) {
 
         uid = pm.id;
-//        myStatus = Status.SEED;
-//        myStatus.setHealth(Health.valueOf(pm.status));
-//        myStatus.setStage(Stage.valueOf(pm.stage));
         myStatus = new Status(pm.status, pm.stage);
 
         myProfile = makeProfile(pm.name, pm.nickname, pm.notes);
         lastWater = pm.last_watered;
+        whenCreated = pm.creation;
         numberOfWaters = pm.droplets;
 
         return this;
+    }
+
+    public PlantModel makePlantModel() {
+        PlantModel pm = new PlantModel();
+        pm.id = uid;
+        pm.status = myStatus.getHealth().getHealth();
+        pm.stage = myStatus.getStage().getStage();
+        pm.name = myProfile.getName();
+        pm.nickname = myProfile.getSubtitle();
+        pm.notes = "";
+        for(String s : myProfile.getNotes()) {
+            pm.notes += s;
+        }
+        pm.last_watered = lastWater;
+        pm.creation = whenCreated;
+        pm.droplets = numberOfWaters;
+        return pm;
     }
 
     public static void setDays(int d) {
