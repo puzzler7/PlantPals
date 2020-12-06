@@ -121,7 +121,7 @@ public class Plant implements Parcelable {
     }
 
     public String getFileName() {
-        return myPlantType.getPlantType() + "/" + myStatus.getFilename() + ".png";
+        return myPlantType.getPlantType() + "." + myStatus.getFilename();
     }
 
     public long getLastWater() {
