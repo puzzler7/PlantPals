@@ -1,10 +1,10 @@
 package com.tabs.tabs.plants;
 
 public enum PlantType {
-    POPPY("poppy"),
-    CACTUS("cactus"),
-    BAMBOO("bamboo"),
-    BONSAI("bonsai");
+    POPPY("POPPY"),
+    CACTUS("CACTUS"),
+    BAMBOO("BAMBOO"),
+    BONSAI("BONSAI");
 
     private String plantType;
 

@@ -54,16 +54,18 @@ public class Plant implements Parcelable {
     }
 
     public Plant() {
-        this(PlantType.POPPY, Status.EMPTY, new Profile());
+        this(PlantType.POPPY, new Status(Stage.EMPTY.getStage(), Health.HEALTHY.getHealth()), new Profile());
+//        this(PlantType.POPPY, Status.FLOWER, new Profile());
     }
 
     // TODO: fix myStatus
     public Plant makePlant(PlantModel pm) {
 
         uid = pm.id;
-        myStatus = Status.SEED;
-        myStatus.setHealth(Health.valueOf(pm.status));
-        myStatus.setStage(Stage.valueOf(pm.stage));
+//        myStatus = Status.SEED;
+//        myStatus.setHealth(Health.valueOf(pm.status));
+//        myStatus.setStage(Stage.valueOf(pm.stage));
+        myStatus = new Status(pm.status, pm.stage);
 
         myProfile = makeProfile(pm.name, pm.nickname, pm.notes);
         lastWater = pm.last_watered;
@@ -99,16 +101,19 @@ public class Plant implements Parcelable {
 
         uid = in.readInt();
         myPlantType = PlantType.valueOf(in.readString());
-        myStatus = Status.SEED;
+//        myStatus = new Status(Stage.SEED.getStage(), Health.HEALTHY.getHealth());
         Stage newStage = Stage.valueOf(in.readString());
         Health newHealth = Health.valueOf(in.readString());
-        myStatus.setStage(newStage);
-        myStatus.setHealth(newHealth);
+//        myStatus.setStage(newStage);
+//        myStatus.setHealth(newHealth);
+        myStatus = new Status(newStage.getStage(), newHealth.getHealth());
+//        System.out.println("myStatus = " + myStatus.getFilename());
 
         myProfile = Profile.readProfile(in.readString()); //___ is grrrr
         whenCreated = in.readLong();
         lastWater = in.readLong();
         numberOfWaters = in.readInt();
+//        System.out.println("\tread from parcel = " + getFileName());
     }
 
     @Override
@@ -121,6 +126,7 @@ public class Plant implements Parcelable {
         dest.writeLong(whenCreated);
         dest.writeLong(lastWater);
         dest.writeInt(numberOfWaters);
+//        System.out.println("\twrite to parcel: " + getFileName());
     }
 
     @Override
@@ -146,7 +152,7 @@ public class Plant implements Parcelable {
      */
     public void water() {
         long currentWater = System.currentTimeMillis() + days * ONE_DAY_MILLI;
-        if(currentWater - lastWater < SIXTEEN_HOURS_MILLI || myStatus == Status.EMPTY) return;
+        if(currentWater - lastWater < SIXTEEN_HOURS_MILLI || myStatus.getStage() == Stage.EMPTY) return;
         else {
             lastWater = currentWater;
             numberOfWaters++;
@@ -160,7 +166,7 @@ public class Plant implements Parcelable {
      */
     public void checkDecay() {
         long currentTime = System.currentTimeMillis() + days * ONE_DAY_MILLI;
-        if(currentTime - lastWater > FOURTEEN_DAYS_MILLI && myStatus.getStage() != Stage.SEED && myStatus != Status.EMPTY) {
+        if(currentTime - lastWater > FOURTEEN_DAYS_MILLI && myStatus.getStage() != Stage.SEED && myStatus.getStage() != Stage.EMPTY) {
             if(myStatus.getHealth() == Health.HEALTHY) {
                 myStatus.setHealth(Health.WILT);
                 numberOfWaters = 0;
@@ -190,7 +196,8 @@ public class Plant implements Parcelable {
     }
 
     public String getFileName() {
-        return myPlantType.getPlantType() + "." + myStatus.getFilename();
+//        return myPlantType.getPlantType() + "." + myStatus.getFilename();
+        return myStatus.getFilename().toLowerCase();
     }
 
     public long getLastWater() {

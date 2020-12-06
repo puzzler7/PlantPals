@@ -13,7 +13,12 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tabs.tabs.R;
+import com.tabs.tabs.plants.Health;
 import com.tabs.tabs.plants.Plant;
+import com.tabs.tabs.plants.PlantType;
+import com.tabs.tabs.plants.Profile;
+import com.tabs.tabs.plants.Stage;
+import com.tabs.tabs.plants.Status;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +43,8 @@ public class GardenFragment extends Fragment {
             init = true;
             plants = new ArrayList<>();
             for (int i = 0; i < 10; i++) {
-                plants.add(new Plant());
+//                plants.add(new Plant());
+                plants.add(new Plant(PlantType.POPPY, new Status(Stage.values()[i % Stage.values().length].getStage(), Health.values()[i % Health.values().length].getHealth()), new Profile()));
             }
         }
         // Inflate the layout for this fragment
