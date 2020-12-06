@@ -101,7 +101,7 @@
             android:text="Cancel"
             android:layout_centerHorizontal="true"
             android:textSize="18sp"
-            android:layout_below="@+id/option1"
+            android:layout_below="@+id/yes"
             android:background="@color/cancelRed"
             />
 

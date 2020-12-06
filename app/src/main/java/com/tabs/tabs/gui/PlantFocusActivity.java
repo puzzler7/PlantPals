@@ -60,27 +60,30 @@ public class PlantFocusActivity extends AppCompatActivity {
         // TODO: USE THIS FOR THE TEXT EDITING AND SUCH
         Runnable bobReset = (() -> BobLogic.focusPageSetBob(0, ""));
 
-        Plant currPlant;
+        final Plant[] currPlant = new Plant[1];
         if (pager.getCurrentItem() < plantList.size()) {
-            currPlant = plantList.get(pager.getCurrentItem());
+            currPlant[0] = plantList.get(pager.getCurrentItem());
         } else {
-            currPlant = new Plant();
+            currPlant[0] = new Plant();
         }
 
         System.out.println("THIS IS bob = " + bob);
         bob.setOnClickListener(s -> {
-            if (currPlant.getHealth() == Health.WILT || currPlant.getHealth() == Health.SAD) {
-                BobLogic.focusPageSetBob(101, currPlant.getProfile().getName());
+            if (currPlant[0].getHealth() == Health.WILT || currPlant[0].getHealth() == Health.SAD) {
+                BobLogic.focusPageSetBob(101, currPlant[0].getProfile().getName());
             } else {
-                long daysDiff = (System.currentTimeMillis() - currPlant.getLastWater())/86400000;
-                BobLogic.focusPageSetBob(111, ("" + daysDiff));
+                //FIXME: SCROLLING BUG AND DAY 0? edge case
+                if (currPlant[0].getLastWater() != 0) {
+                    long daysDiff = (System.currentTimeMillis() - currPlant[0].getLastWater()) / 86400000;
+                    BobLogic.focusPageSetBob(111, ("" + daysDiff));
+                }
             }
         });
         bobText.setOnClickListener(s -> {
-            if (currPlant.getHealth() == Health.WILT || currPlant.getHealth() == Health.SAD) {
-                BobLogic.focusPageSetBob(101, currPlant.getProfile().getName());
+            if (currPlant[0].getHealth() == Health.WILT || currPlant[0].getHealth() == Health.SAD) {
+                BobLogic.focusPageSetBob(101, currPlant[0].getProfile().getName());
             } else {
-                long daysDiff = (System.currentTimeMillis() - currPlant.getLastWater())/86400000;
+                long daysDiff = (System.currentTimeMillis() - currPlant[0].getLastWater())/86400000;
                 BobLogic.focusPageSetBob(111, ("" + daysDiff));
             }
         });
@@ -102,7 +105,7 @@ public class PlantFocusActivity extends AppCompatActivity {
 
         ImageButton water = findViewById(R.id.water);
         water.setOnClickListener(s -> {
-            long millisDiff = (System.currentTimeMillis() - currPlant.getLastWater());
+            long millisDiff = (System.currentTimeMillis() - currPlant[0].getLastWater());
             if (millisDiff < 57600000) {
                 BobLogic.focusPageSetBob(171, "");
             }
@@ -117,6 +120,11 @@ public class PlantFocusActivity extends AppCompatActivity {
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 //do nothing
                 BobLogic.focusPageSetBob(0, "");
+                if (pager.getCurrentItem() < plantList.size()) {
+                    currPlant[0] = plantList.get(pager.getCurrentItem());
+                } else {
+                    currPlant[0] = new Plant();
+                }
             }
 
             @Override
@@ -143,7 +151,7 @@ public class PlantFocusActivity extends AppCompatActivity {
         exit.setOnClickListener(s->finish());
 
         ImageButton waterBucket = findViewById(R.id.water);
-        waterBucket.setOnClickListener(s->currPlant.water());
+        waterBucket.setOnClickListener(s-> currPlant[0].water());
 
         ImageButton delete = findViewById(R.id.delete);
         //delete.setOnClickListener();

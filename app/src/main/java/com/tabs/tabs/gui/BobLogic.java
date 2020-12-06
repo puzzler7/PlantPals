@@ -94,7 +94,7 @@ public class BobLogic {
     public static void focusPageSetBob(int choice, String fill) {
         System.out.println("CLICKED " + choice + "" + convoNum);
         pageNum = 2;
-        if (convoNum != 0 || choice == 0) {
+        if ((convoNum != 0 || choice == 0) && !(choice == 156 || choice == 161)) {
             convoNum = 0;
             focusSimpleText.setVisibility(View.GONE);
             focusBobText.setVisibility(View.GONE);
