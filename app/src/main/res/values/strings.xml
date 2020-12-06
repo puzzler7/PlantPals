@@ -34,5 +34,5 @@
     <string name="bob_option_encourage2">Staying connected to friends will help you lower stress, find support, and stay healthy!</string>
     
     <string name="bob_plant_wilt">Oh no your plant is wilting! Remember to catch up with %1$s soon, and then water your plant by clicking the water jug icon!</string>
-    <string name="bob_plant_congrats">Wow! Your plant looks healthy. Cheers to %1$d days of friendship.</string>
+    <string name="bob_plant_congrats">Wow! Your plant looks healthy. Cheers to %1$s days of friendship.</string>
 </resources>
