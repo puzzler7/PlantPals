@@ -20,6 +20,7 @@ import androidx.room.Room;
 
 import com.tabs.tabs.R;
 import com.tabs.tabs.database.AppDatabase;
+import com.tabs.tabs.database.MockDatabase;
 import com.tabs.tabs.database.PlantModel;
 import com.tabs.tabs.plants.Health;
 import com.tabs.tabs.plants.Plant;
@@ -36,12 +37,12 @@ public class GardenFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private GridLayoutManager layoutManager;
-    private PlantAdapter adapter;
+    private static PlantAdapter adapter;
 
     public BobLogic myBob;
 
     private static boolean init = false;
-    private static List<Plant> plants;
+    private List<Plant> plants;
 
     public static int NUM_COLUMNS = 3;
 
@@ -50,22 +51,10 @@ public class GardenFragment extends Fragment {
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
-        /*
-        if (!init) {
-            init = true;
-            plants = new ArrayList<>();
-            for (int i = 0; i < 10; i++) {
-//                plants.add(new Plant());
-                Plant p = new Plant(PlantType.POPPY, new Status(Stage.values()[i % Stage.values().length].getStage(), Health.values()[i % Health.values().length].getHealth()), new Profile());
-                Log.i("gardenfragment", p.getFileName());
-                plants.add(p);
-            }
-        }
-
-         */
         if(!init) {
             init = true;
-            plants = new ArrayList<>();
+            plants = MockDatabase.getPlants();
+            plants.clear();
             AppDatabase db = Room.databaseBuilder(getActivity().getApplicationContext(), AppDatabase.class, "plant_db").allowMainThreadQueries().build();
             for(PlantModel pm : db.PlantDao().getAll()) {
                 plants.add(PlantHelper.makePlant(pm));
@@ -78,6 +67,10 @@ public class GardenFragment extends Fragment {
         }
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.garden_fragment_layout, container, false);
+    }
+
+    public static void notifyDataChange() {
+        adapter.notifyDataSetChanged();
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
@@ -97,7 +90,7 @@ public class GardenFragment extends Fragment {
         recyclerView.scrollToPosition(0);
         recyclerView.setLayoutManager(layoutManager);
 
-        adapter = new PlantAdapter(plants);
+        adapter = new PlantAdapter();
         adapter.addContext(getActivity());
         // Set CustomAdapter as the adapter for RecyclerView.
         recyclerView.setAdapter(adapter);
