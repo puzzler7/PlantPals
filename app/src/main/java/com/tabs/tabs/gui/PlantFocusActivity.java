@@ -180,7 +180,10 @@ public class PlantFocusActivity extends AppCompatActivity {
 
 
         ImageButton exit = findViewById(R.id.exit);
-        exit.setOnClickListener(s->finish());
+        exit.setOnClickListener(s->{
+            BobLogic.mainDisappear();
+            finish();
+        });
 
         ImageButton waterBucket = findViewById(R.id.water);
 //        waterBucket.setOnClickListener(s-> currPlant[0].water());

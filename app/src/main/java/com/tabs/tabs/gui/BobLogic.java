@@ -82,7 +82,8 @@ public class BobLogic {
         }
     }
 
-    private static void mainDisappear() {
+    public static void mainDisappear() {
+        convoNum = 0;
         mainBobText.setVisibility(View.GONE); //change to entire box
         bobSimple.setVisibility(View.GONE);
         bobOption1.setVisibility(View.GONE);
