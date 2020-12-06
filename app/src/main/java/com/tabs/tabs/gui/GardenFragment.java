@@ -32,6 +32,7 @@ import com.tabs.tabs.plants.Stage;
 import com.tabs.tabs.plants.Status;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -66,10 +67,24 @@ public class GardenFragment extends Fragment {
             db.close();
             //fake plant
             if (plants.size() <= 0) { // make fake plants if empty
+                /*
                 for (int i = 0; i < 10; i++) {
                     Plant p = new Plant(PlantType.POPPY, new Status(Stage.SAPLING.getStage(), Health.HEALTHY.getHealth()), new Profile());
                     plants.add(p);
                 }
+
+                 */
+
+                plants.add(new Plant(PlantType.POPPY, new Status(Stage.FLOWER.getStage(), Health.HEALTHY.getHealth()), new Profile("Kary", "The best artist I know", Arrays.asList(new String[]{""}))));
+                plants.add(new Plant(PlantType.POPPY, new Status(Stage.FLOWER.getStage(), Health.WILT.getHealth()), new Profile("Maverick", "Thanks for carrying", Arrays.asList(new String[]{""}))));
+                plants.add(new Plant(PlantType.POPPY, new Status(Stage.FLOWER.getStage(), Health.SAD.getHealth()), new Profile("Aaron", "Chai-os", Arrays.asList(new String[]{""}))));
+                plants.add(new Plant(PlantType.POPPY, new Status(Stage.BUD.getStage(), Health.HEALTHY.getHealth()), new Profile("Mary", "Tea Time Tuesday night", Arrays.asList(new String[]{""}))));
+                plants.add(new Plant(PlantType.POPPY, new Status(Stage.BUD.getStage(), Health.WILT.getHealth()), new Profile("Andrew", "Knows where MN is", Arrays.asList(new String[]{""}))));
+                plants.add(new Plant(PlantType.POPPY, new Status(Stage.BUD.getStage(), Health.SAD.getHealth()), new Profile("Tyler", "No thoughts, head empty", Arrays.asList(new String[]{"Ask him when the last time he slept was"}))));
+                plants.add(new Plant(PlantType.POPPY, new Status(Stage.SAPLING.getStage(), Health.HEALTHY.getHealth()), new Profile("Hongyi", "Studying for the MCAT :/", Arrays.asList(new String[]{""}))));
+                plants.add(new Plant(PlantType.POPPY, new Status(Stage.SPROUT.getStage(), Health.HEALTHY.getHealth()), new Profile("Hongyi", "We miss him dearly", Arrays.asList(new String[]{""}))));
+                plants.add(new Plant(PlantType.POPPY, new Status(Stage.SPROUT.getStage(), Health.HEALTHY.getHealth()), new Profile("Jeff", "His name jeff", Arrays.asList(new String[]{""}))));
+                plants.add(new Plant(PlantType.POPPY, new Status(Stage.SEED.getStage(), Health.HEALTHY.getHealth()), new Profile("Hongyi", "I should probably see how he's doing", Arrays.asList(new String[]{""}))));
             } else {
                 Collections.sort(plants, Comparator.comparing(Plant::getUID));
             }

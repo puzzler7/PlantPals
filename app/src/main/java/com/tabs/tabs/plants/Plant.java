@@ -52,6 +52,7 @@ public class Plant implements Parcelable {
         myProfile = p;
         whenCreated = System.currentTimeMillis();
         makeUID();
+        System.out.println(p.getName() + ": " + s.getHealth());
     }
 
     public Plant() {
@@ -187,17 +188,19 @@ public class Plant implements Parcelable {
     public void checkDecay() {
         long currentTime = System.currentTimeMillis() + days * ONE_DAY_MILLI;
         if(currentTime - lastWater > FOURTEEN_DAYS_MILLI && myStatus.getStage() != Stage.SEED && myStatus.getStage() != Stage.EMPTY) {
-            if (myStatus.getHealth() == Health.HEALTHY) {
+            if (myStatus.getHealth() == Health.HEALTHY && lastWater != 0) {
                 System.out.println("***BECOME WILT***");
+                System.out.println(currentTime + "," + lastWater);
                 myStatus.setHealth(Health.WILT);
                 // lastWater = System.currentTimeMillis() + days * ONE_DAY_MILLI;
                 numberOfWaters = 0;
             }
         }
         if(currentTime - lastWater > FOURTEEN_DAYS_MILLI * 2 && myStatus.getStage() != Stage.SEED && myStatus.getStage() != Stage.EMPTY){
-            if (myStatus.getHealth() == Health.WILT) {
+            if (myStatus.getHealth() == Health.WILT && lastWater != 0) {
                 if (myStatus.getStage() == Stage.BUD || myStatus.getStage() == Stage.FLOWER) {
                     System.out.println("***BECOME SAD***");
+                    System.out.println(currentTime + "," + lastWater);
                     myStatus.setHealth(Health.SAD);
                     numberOfWaters = 0;
                 }
