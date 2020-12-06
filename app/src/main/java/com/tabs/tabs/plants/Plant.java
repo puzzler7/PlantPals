@@ -57,7 +57,6 @@ public class Plant implements Parcelable {
         this(PlantType.POPPY, new Status(Stage.EMPTY.getStage(), Health.HEALTHY.getHealth()), new Profile());
     }
 
-    // TODO: fix myStatus
     public Plant makePlant(PlantModel pm) {
 
         uid = pm.id;
@@ -80,8 +79,9 @@ public class Plant implements Parcelable {
         pm.nickname = myProfile.getSubtitle();
         pm.notes = "";
         for(String s : myProfile.getNotes()) {
-            pm.notes += s;
+            pm.notes += "___" + s;
         }
+        pm.notes = pm.notes.substring(3);
         pm.last_watered = lastWater;
         pm.creation = whenCreated;
         pm.droplets = numberOfWaters;
