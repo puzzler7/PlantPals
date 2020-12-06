@@ -27,7 +27,7 @@ public class Plant implements Parcelable {
     }
 
     public Plant() {
-        this(PlantType.POPPY, Status.SEED, new Profile());
+        this(PlantType.POPPY, Status.EMPTY, new Profile());
     }
 
     public static void setDays(int d) {
@@ -93,7 +93,7 @@ public class Plant implements Parcelable {
      */
     public void water() {
         long currentWater = System.currentTimeMillis() + days * ONE_DAY_MILLI;
-        if(currentWater - lastWater < SIXTEEN_HOURS_MILLI) return;
+        if(currentWater - lastWater < SIXTEEN_HOURS_MILLI || myStatus == Status.EMPTY) return;
         else {
             lastWater = currentWater;
             numberOfWaters++;
@@ -107,7 +107,7 @@ public class Plant implements Parcelable {
      */
     public void checkDecay() {
         long currentTime = System.currentTimeMillis() + days * ONE_DAY_MILLI;
-        if(currentTime - lastWater > FOURTEEN_DAYS_MILLI && myStatus.getStage() != Stage.SEED) {
+        if(currentTime - lastWater > FOURTEEN_DAYS_MILLI && myStatus.getStage() != Stage.SEED && myStatus != Status.EMPTY) {
             if(myStatus.getHealth() == Health.HEALTHY) {
                 myStatus.setHealth(Health.WILT);
                 numberOfWaters = 0;

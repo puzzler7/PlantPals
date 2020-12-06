@@ -2,6 +2,7 @@ package com.tabs.tabs.plants;
 
 public enum Status {
 
+    EMPTY("EMPTY", "HEALTHY"),
     SEED("SEED", "HEALTHY"),
     SPROUT("SPROUT", "HEALTHY"),
     SPROUT_WILT("SPROUT", "WILT"),

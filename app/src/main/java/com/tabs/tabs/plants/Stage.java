@@ -1,6 +1,7 @@
 package com.tabs.tabs.plants;
 
 public enum Stage {
+    EMPTY("EMPTY"),
     SEED("SEED"),
     SPROUT("SPROUT"),
     SAPLING("SAPLING"),
