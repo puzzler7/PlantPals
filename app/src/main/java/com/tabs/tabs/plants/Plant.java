@@ -91,13 +91,15 @@ public class Plant implements Parcelable {
      */
     public void checkDecay() {
         long currentTime = System.currentTimeMillis();
-        if(currentTime - lastWater > FOURTEEN_DAYS_MILLI) {
+        if(currentTime - lastWater > FOURTEEN_DAYS_MILLI && myStatus.getStage() != Stage.SEED) {
             if(myStatus.getHealth() == Health.HEALTHY) {
                 myStatus.setHealth(Health.WILT);
                 numberOfWaters = 0;
             } else if(myStatus.getHealth() == Health.WILT) {
-                myStatus.setHealth(Health.SAD);
-                numberOfWaters = 0;
+                if (myStatus.getStage() == Stage.BUD || myStatus.getStage() == Stage.FLOWER) {
+                    myStatus.setHealth(Health.SAD);
+                    numberOfWaters = 0;
+                }
             }
         }
     }
@@ -116,6 +118,10 @@ public class Plant implements Parcelable {
 
     public PlantType getPlantType() {
         return myPlantType;
+    }
+
+    public String getFileName() {
+        return myPlantType.getPlantType() + "/" + myStatus.getFilename() + ".png";
     }
 
     public long getLastWater() {
