@@ -70,6 +70,11 @@ public class GardenFragment extends Fragment {
             for(PlantModel pm : db.PlantDao().getAll()) {
                 plants.add(PlantHelper.makePlant(pm));
             }
+            //fake plant
+            for (int i = 0; i < 10; i++) {
+                Plant p = new Plant(PlantType.POPPY, new Status(Stage.FLOWER.getStage(), Health.HEALTHY.getHealth()), new Profile());
+                plants.add(p);
+            }
         }
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.garden_fragment_layout, container, false);
