@@ -1,6 +1,7 @@
 package com.tabs.tabs.gui;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,7 +45,9 @@ public class GardenFragment extends Fragment {
             plants = new ArrayList<>();
             for (int i = 0; i < 10; i++) {
 //                plants.add(new Plant());
-                plants.add(new Plant(PlantType.POPPY, new Status(Stage.values()[i % Stage.values().length].getStage(), Health.values()[i % Health.values().length].getHealth()), new Profile()));
+                Plant p = new Plant(PlantType.POPPY, new Status(Stage.values()[i % Stage.values().length].getStage(), Health.values()[i % Health.values().length].getHealth()), new Profile());
+                Log.i("gardenfragment", p.getFileName());
+                plants.add(p);
             }
         }
         // Inflate the layout for this fragment

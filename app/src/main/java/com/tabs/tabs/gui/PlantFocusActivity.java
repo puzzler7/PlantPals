@@ -36,14 +36,10 @@ public class PlantFocusActivity extends AppCompatActivity {
         setContentView(R.layout.plant_focus_activity);
 
         //imageLinks = getIntent().getStringArrayListExtra("links");
-//        total = getIntent().getIntExtra("total", 10);
+        total = getIntent().getIntExtra("total", 10);
         int startIndex = getIntent().getIntExtra("index", 0);
         plantList = getIntent().getParcelableArrayListExtra("plantList");
         System.out.println("ON FOCUS CREATE index: " + startIndex + " : " + plantList.get(3).getFileName());
-        total = plantList.size();
-
-
-
 
         // Instantiate a ViewPager and a PagerAdapter.
         pager = findViewById(R.id.plant_pager);
@@ -75,11 +71,18 @@ public class PlantFocusActivity extends AppCompatActivity {
 //        title = findViewById(R.id.appbar_title);
 //        setTitleText(startIndex);
 
+        Plant currPlant;
+        if (pager.getCurrentItem() < plantList.size()) {
+            currPlant = plantList.get(pager.getCurrentItem());
+        } else {
+            currPlant = new Plant();
+        }
+
         ImageButton exit = findViewById(R.id.exit);
         exit.setOnClickListener(s->finish());
 
         ImageButton water = findViewById(R.id.water);
-        water.setOnClickListener(s->plantList.get(pager.getCurrentItem()).water());
+        water.setOnClickListener(s->currPlant.water());
 
         ImageButton delete = findViewById(R.id.delete);
         //delete.setOnClickListener();
@@ -103,7 +106,13 @@ public class PlantFocusActivity extends AppCompatActivity {
 //            return new PlantFocusFragment(null);//new Plant());
 //            return new PlantFocusFragment(new Plant());
 //            System.out.println("BAD" + plantList.size() + " " + position);
-            return new PlantFocusFragment(plantList.get(position));
+            Plant currPlant;
+            if (position < plantList.size()) {
+                currPlant = plantList.get(position);
+            } else {
+                currPlant = new Plant();
+            }
+            return new PlantFocusFragment(currPlant);
         }
 
         @Override
