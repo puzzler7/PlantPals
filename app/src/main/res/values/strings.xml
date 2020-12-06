@@ -18,8 +18,7 @@
     <string name="del_plant_yes">Okay, let me take care of it.</string>
     <string name="spam_water_can">
         I noticed that you watered %1$s a lot recently, I’m glad your friendship is going strong. Remember though, relationships take time to grow, just like plants!
-    </string>
-    
+    </string>    
     <string name="bob_introduction">Hi there! What can I help you with today?</string>
     <string name="bob_option_addgrow_plant">How do I grow a plant?</string>
     <string name="bob_option_addgrow_plant2">
@@ -36,9 +35,4 @@
     
     <string name="bob_plant_wilt">Oh no your plant is wilting! Remember to catch up with %1$s soon, and then water your plant by clicking the water jug icon!</string>
     <string name="bob_plant_congrats">Wow! Your plant looks healthy. Cheers to %1$d days of friendship.</string>
-
-    
-    
-    
-    
 </resources>

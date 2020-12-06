@@ -21,12 +21,14 @@ import com.tabs.tabs.R;
 import com.tabs.tabs.plants.Plant;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class PlantFocusActivity extends AppCompatActivity {
 
     private ViewPager2 pager;
     private int total;
     private PlantFocusAdapter adapter;
+    private List<Plant> plantList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +36,11 @@ public class PlantFocusActivity extends AppCompatActivity {
         setContentView(R.layout.plant_focus_activity);
 
         //imageLinks = getIntent().getStringArrayListExtra("links");
-        total = getIntent().getIntExtra("total", 10);
+//        total = getIntent().getIntExtra("total", 10);
         int startIndex = getIntent().getIntExtra("index", 0);
+        plantList = getIntent().getParcelableArrayListExtra("plantList");
+        System.out.println("ON FOCUS CREATE index: " + startIndex + " : " + plantList.get(3).getFileName());
+        total = plantList.size();
 
 
 
@@ -74,6 +79,10 @@ public class PlantFocusActivity extends AppCompatActivity {
         exit.setOnClickListener(s->finish());
 
         ImageButton water = findViewById(R.id.water);
+        water.setOnClickListener(s->plantList.get(pager.getCurrentItem()).water());
+
+        ImageButton delete = findViewById(R.id.delete);
+        //delete.setOnClickListener();
 
     }
 
@@ -91,7 +100,10 @@ public class PlantFocusActivity extends AppCompatActivity {
         @NonNull
         @Override
         public Fragment createFragment(int position) {
-            return new PlantFocusFragment(null);//new Plant());
+//            return new PlantFocusFragment(null);//new Plant());
+//            return new PlantFocusFragment(new Plant());
+//            System.out.println("BAD" + plantList.size() + " " + position);
+            return new PlantFocusFragment(plantList.get(position));
         }
 
         @Override
