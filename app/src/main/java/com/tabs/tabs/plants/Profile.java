@@ -11,8 +11,8 @@ public class Profile {
     private List<String> personNotes;
 
     public Profile() {
-        setName("Tyler");
-        setSubtitle("Nothing he can do about it");
+        setName("New Friend");
+        setSubtitle("");//Nothing he can do about it");
         ArrayList<String> stAr = new ArrayList<>();
         stAr.add("");
         setNotes(stAr);
