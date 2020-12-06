@@ -46,13 +46,15 @@
         android:src="@drawable/shovel" />
     <ImageButton
         android:id="@+id/exit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="60dp"
+        android:layout_height="50dp"
+        android:background="@null"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:layout_marginLeft="10dp"
-        android:src="@drawable/ic_clear_white_36dp" />
+        android:scaleType="fitXY"
+        android:src="@drawable/gardenicon" />
     <include layout="@layout/notes"/>
 
 

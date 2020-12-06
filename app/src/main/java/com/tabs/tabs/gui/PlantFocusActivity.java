@@ -45,7 +45,6 @@ public class PlantFocusActivity extends AppCompatActivity {
         int startIndex = getIntent().getIntExtra("index", 0);
         plantList = getIntent().getParcelableArrayListExtra("plantList");
         // System.out.println("ON FOCUS CREATE index: " + startIndex + " : " + plantList.get(3).getFileName());
-        total = plantList.size();
 
         // Instantiate a ViewPager and a PagerAdapter.
         pager = findViewById(R.id.plant_pager);
