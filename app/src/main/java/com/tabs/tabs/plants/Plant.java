@@ -1,6 +1,9 @@
 package com.tabs.tabs.plants;
 
-public class Plant {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Plant implements Parcelable {
 
     private PlantType myPlantType;
     private Status myStatus;
@@ -24,6 +27,50 @@ public class Plant {
     public Plant() {
         this(PlantType.POPPY, Status.SEED, new Profile());
     }
+
+    //////Parcel
+    protected Plant(Parcel in) {
+        /**
+         * dest.writeString(myPlantType.getPlantType());
+         * dest.writeString(myStatus.getStage().getStage());
+         * dest.writeString(myStatus.getHealth().getHealth());
+         * dest.writeString(myProfile.writeProfile());
+         */
+        myPlantType = PlantType.valueOf(in.readString());
+        myStatus = Status.valueOf(in.readString()); //fix if bad
+        myProfile = Profile.readProfile(in.readString()); //___ is grrrr
+        lastWater = in.readLong();
+        numberOfWaters = in.readInt();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(myPlantType.getPlantType());
+        dest.writeString(myStatus.name());
+//        dest.writeString(myStatus.getStage().getStage());
+//        dest.writeString(myStatus.getHealth().getHealth());
+        dest.writeString(myProfile.writeProfile());
+        dest.writeLong(lastWater);
+        dest.writeInt(numberOfWaters);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0; //TODO: ???
+    }
+
+    public static final Creator<Plant> CREATOR = new Creator<Plant>() {
+        @Override
+        public Plant createFromParcel(Parcel in) {
+            return new Plant(in);
+        }
+
+        @Override
+        public Plant[] newArray(int size) {
+            return new Plant[size];
+        }
+    };
+    //////Parcel
 
     /**
      * Call when water bucket is clicked for the plant
