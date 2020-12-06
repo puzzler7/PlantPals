@@ -13,6 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.util.Consumer;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -29,7 +30,11 @@ import com.tabs.tabs.plants.Plant;
 import com.tabs.tabs.plants.Stage;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.net.ssl.HandshakeCompletedEvent;
 
 public class PlantFocusActivity extends AppCompatActivity {
 
@@ -37,6 +42,7 @@ public class PlantFocusActivity extends AppCompatActivity {
     private int total;
     private PlantFocusAdapter adapter;
     private List<Plant> plantList;
+    private Map<Integer, Runnable> drawMethods = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,6 +126,17 @@ public class PlantFocusActivity extends AppCompatActivity {
                 BobLogic.focusPageSetBob(171, currPlant[0].getProfile().getName());
             }
             currPlant[0].water();
+            adapter.notifyDataSetChanged();
+            drawMethods.get(pager.getCurrentItem()).run();
+        });
+
+        ImageButton daySkip = findViewById(R.id.day_skip);
+        daySkip.setOnClickListener(s -> {
+            currPlant[0].setDays(currPlant[0].getDays()+1);
+            currPlant[0].checkDecay();
+            System.out.println("\tincrement---");
+            adapter.notifyDataSetChanged();
+            drawMethods.get(pager.getCurrentItem()).run();
         });
 
         pager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
@@ -222,7 +239,9 @@ public class PlantFocusActivity extends AppCompatActivity {
             } else {
                 currPlant = new Plant();
             }
-            return new PlantFocusFragment(currPlant);
+            PlantFocusFragment ret = new PlantFocusFragment(currPlant);
+            drawMethods.put(position, ret::draw);
+            return ret;
         }
 
         @Override

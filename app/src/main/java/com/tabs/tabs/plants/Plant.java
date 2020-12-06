@@ -166,10 +166,11 @@ public class Plant implements Parcelable {
      * Call when water bucket is clicked for the plant
      */
     public void water() {
-        System.out.println("---thanks for the water!---");
+        System.out.print("---thanks for the water!---");
         long currentWater = System.currentTimeMillis() + days * ONE_DAY_MILLI;
         if(currentWater - lastWater < SIXTEEN_HOURS_MILLI || myStatus.getStage() == Stage.EMPTY) return;
         else {
+            System.out.println("\tI liked it!---");
             lastWater = currentWater;
             numberOfWaters++;
             checkStatusUpdate();
@@ -184,10 +185,13 @@ public class Plant implements Parcelable {
         long currentTime = System.currentTimeMillis() + days * ONE_DAY_MILLI;
         if(currentTime - lastWater > FOURTEEN_DAYS_MILLI && myStatus.getStage() != Stage.SEED && myStatus.getStage() != Stage.EMPTY) {
             if(myStatus.getHealth() == Health.HEALTHY) {
+                System.out.println("***BECOME WILT***");
                 myStatus.setHealth(Health.WILT);
+                lastWater = System.currentTimeMillis() + days * ONE_DAY_MILLI;
                 numberOfWaters = 0;
             } else if (myStatus.getHealth() == Health.WILT) {
                 if (myStatus.getStage() == Stage.BUD || myStatus.getStage() == Stage.FLOWER) {
+                    System.out.println("***BECOME SAD***");
                     myStatus.setHealth(Health.SAD);
                     numberOfWaters = 0;
                 }
@@ -236,11 +240,13 @@ public class Plant implements Parcelable {
         if (myStatus.getHealth() == Health.SAD) {
             if (numberOfWaters > 0) {
                 numberOfWaters = 0;
+                System.out.println("***BECOME WILT***");
                 myStatus.setHealth(Health.WILT);
             }
         } else if (myStatus.getHealth() == Health.WILT) {
             if (numberOfWaters > 0) {
                 numberOfWaters = 0;
+                System.out.println("***BECOME HEALTHY***");
                 myStatus.setHealth(Health.HEALTHY);
             }
         } else {
@@ -265,12 +271,14 @@ public class Plant implements Parcelable {
                 break;
             case SAPLING:
                 if (numberOfWaters >= TO_BUD) {
+                    System.out.println("I'M A BUD NOW");
                     myStatus.setStage(Stage.BUD);
                     numberOfWaters = 0;
                 }
                 break;
             case BUD:
                 if (numberOfWaters >= TO_FLOWER) {
+                    System.out.println("I'M A FLOWER NOW");
                     myStatus.setStage(Stage.FLOWER);
                     numberOfWaters = 0;
                 }

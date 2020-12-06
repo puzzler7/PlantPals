@@ -18,6 +18,10 @@ import com.tabs.tabs.plants.Plant;
 public class PlantFocusFragment extends Fragment {
 
     private Plant plant;
+    private ImageView img;
+    private EditText name;
+    private EditText subtitle;
+    private ViewGroup rootView;
 
     public PlantFocusFragment(Plant plt) {
         plant = plt;
@@ -26,16 +30,26 @@ public class PlantFocusFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.plant_focus_fragment, container, false);
-        ImageView img = rootView.findViewById(R.id.img);
-        EditText name = rootView.findViewById(R.id.name);
+        rootView = (ViewGroup) inflater.inflate(R.layout.plant_focus_fragment, container, false);
+        img = rootView.findViewById(R.id.img);
+        name = rootView.findViewById(R.id.name);
 
-        EditText subtitle = rootView.findViewById(R.id.subtitle);
+        subtitle = rootView.findViewById(R.id.subtitle);
         //ImageView prof = rootView.findViewById(R.id.profile_pic);
 
 //        img.setImageResource(getContext().getResources().getIdentifier("cutecactus", "drawable", getContext().getPackageName()));
 //        System.out.println("MY FRAG FILENAME IS " + plant.getFileName());
 
+        draw();
+
+        return rootView;
+    }
+
+    public void draw() {
+        draw(""); // the string is to make lambdas happy
+    }
+
+    public void draw(String s) {
         img.setImageResource(getContext().getResources().getIdentifier(plant.getFileName(), "drawable", getContext().getPackageName()));
         name.setText(plant.getProfile().getName());
         if(name.requestFocus()) {
@@ -66,9 +80,7 @@ public class PlantFocusFragment extends Fragment {
         } else if (daysDiff == 1) {
             daysWater.setText(getString(R.string.day_since_water));
         } else {
-            daysWater.setText(getString(R.string.days_since_water));
+            daysWater.setText(String.format(getString(R.string.days_since_water), daysDiff));
         }
-
-        return rootView;
     }
 }

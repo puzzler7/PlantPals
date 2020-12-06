@@ -45,6 +45,16 @@
         android:scaleType="fitXY"
         android:src="@drawable/shovel" />
     <ImageButton
+        android:id="@+id/day_skip"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@null"
+        app:layout_constraintRight_toRightOf="@id/delete"
+        app:layout_constraintTop_toBottomOf="@id/delete"
+        android:layout_marginTop="10dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/skip" />
+    <ImageButton
         android:id="@+id/exit"
         android:layout_width="60dp"
         android:layout_height="50dp"
