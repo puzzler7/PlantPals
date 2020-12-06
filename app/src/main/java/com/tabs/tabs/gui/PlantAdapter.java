@@ -16,6 +16,8 @@ import com.tabs.tabs.plants.Plant;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.tabs.tabs.gui.GardenFragment.NUM_COLUMNS;
+
 public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.ViewHolder> {
 
     private List<Plant> plants;
@@ -90,8 +92,14 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.ViewHolder> 
             }
         });
 
-        int id = context.getResources().getIdentifier(plants.get(position).getFileName(), "drawable", context.getPackageName());
-        System.out.println(plants.get(position).getFileName() + ": " + id);
+        Plant currPlant;
+        if (position < plants.size()) {
+            currPlant = plants.get(position);
+        } else {
+            currPlant = new Plant();
+        }
+        int id = context.getResources().getIdentifier(currPlant.getFileName(), "drawable", context.getPackageName());
+        System.out.println(currPlant.getFileName() + ": " + id);
         viewHolder.getImageView().setImageResource(id);
 
         //viewHolder.getProfileView().setImageResource(R.drawable.oval);
@@ -100,6 +108,6 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.ViewHolder> 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return plants.size(); //+1 for empty pot?
+        return (plants.size()/NUM_COLUMNS)*NUM_COLUMNS+2*NUM_COLUMNS;
     }
 }
