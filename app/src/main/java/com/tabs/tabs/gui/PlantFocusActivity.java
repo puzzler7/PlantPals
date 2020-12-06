@@ -124,7 +124,7 @@ public class PlantFocusActivity extends AppCompatActivity {
 
         ImageButton water = findViewById(R.id.water);
         water.setOnClickListener(s -> {
-            long millisDiff = (System.currentTimeMillis() - currPlant[0].getLastWater());
+            long millisDiff = (currPlant[0].getMillsSinceWatered());
             if (millisDiff < 57600000) {
                 BobLogic.focusPageSetBob(171, currPlant[0].getProfile().getName());
             }

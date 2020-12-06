@@ -210,6 +210,11 @@ public class Plant implements Parcelable {
         return (currentTime - lastWater)/ONE_DAY_MILLI;
     }
 
+    public long getMillsSinceWatered() {
+        long currentTime = System.currentTimeMillis() + days * ONE_DAY_MILLI;
+        return (currentTime - lastWater);
+    }
+
     public Status getStatus() {
         return myStatus;
     }

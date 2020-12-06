@@ -86,19 +86,8 @@ public class PlantFocusFragment extends Fragment {
         }
         name.setOnFocusChangeListener((v, hasFocus)-> {
           if (!hasFocus) {
-//            name.requestFocus();
-
-                plant.getProfile().setName(name.getText().toString());
-                getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-
-              System.out.println("I have focus");
-
-//              name.clearFocus();
-//              name.setShowSoftInputOnFocus(false);
-          } else {
-              System.out.println("I lack focus");
-//              name.clearFocus();
-//              name.setShowSoftInputOnFocus(false);
+            plant.getProfile().setName(name.getText().toString());
+            getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
           }
         });
 
@@ -118,7 +107,10 @@ public class PlantFocusFragment extends Fragment {
 
         TextView daysWater = rootView.findViewById(R.id.days_since_watered);
         long daysDiff = plant.getDaysSinceWatered();
-        if (plant.getLastWater() % 86400000 == 0) {
+//        System.out.println("\n\nplant.getLastWater() = " + plant.getLastWater());
+//        System.out.println("daysDiff = " + daysDiff);
+//        System.out.println("days less " + (plant.getLastWater() - daysDiff * 86400000));
+        if (plant.getLastWater() % 86400000 == 0 || (plant.getLastWater() - daysDiff * 86400000) < 0) {
             daysWater.setText(getString(R.string.zero_day_water));
         } else if (daysDiff == 1) {
             daysWater.setText(getString(R.string.day_since_water));
