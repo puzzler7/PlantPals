@@ -72,7 +72,7 @@ public class GardenFragment extends Fragment {
             }
             //fake plant
             for (int i = 0; i < 10; i++) {
-                Plant p = new Plant(PlantType.POPPY, new Status(Stage.FLOWER.getStage(), Health.HEALTHY.getHealth()), new Profile());
+                Plant p = new Plant(PlantType.POPPY, new Status(Stage.SAPLING.getStage(), Health.HEALTHY.getHealth()), new Profile());
                 plants.add(p);
             }
         }

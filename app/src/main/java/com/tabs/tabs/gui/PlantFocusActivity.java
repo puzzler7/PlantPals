@@ -116,6 +116,13 @@ public class PlantFocusActivity extends AppCompatActivity {
             currPlant[0].water();
         });
 
+        ImageButton daySkip = findViewById(R.id.day_skip);
+        daySkip.setOnClickListener(s -> {
+            currPlant[0].setDays(currPlant[0].getDays()+1);
+            currPlant[0].checkDecay();
+            System.out.println("\tincrement---");
+        });
+
 
         pager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
 //        pager.addOnPage(new ViewPager.OnPageChangeListener() {
