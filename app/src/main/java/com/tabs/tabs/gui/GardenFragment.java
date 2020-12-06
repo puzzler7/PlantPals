@@ -1,14 +1,13 @@
 package com.tabs.tabs.gui;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,6 +27,8 @@ public class GardenFragment extends Fragment {
     private static boolean init = false;
     private static List<Plant> plants;
 
+    public static int NUM_COLUMNS = 3;
+
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
@@ -41,7 +42,7 @@ public class GardenFragment extends Fragment {
             }
         }
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_first, container, false);
+        return inflater.inflate(R.layout.garden_fragment_layout, container, false);
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
@@ -56,7 +57,7 @@ public class GardenFragment extends Fragment {
 //        });
 
         recyclerView = view.findViewById(R.id.recyclerView);
-        layoutManager = new GridLayoutManager(getActivity(), 4);
+        layoutManager = new GridLayoutManager(getActivity(), NUM_COLUMNS);
         recyclerView.scrollToPosition(0);
         recyclerView.setLayoutManager(layoutManager);
 
@@ -64,5 +65,8 @@ public class GardenFragment extends Fragment {
         adapter.addContext(getActivity());
         // Set CustomAdapter as the adapter for RecyclerView.
         recyclerView.setAdapter(adapter);
+
+        ImageView bob = view.findViewById(R.id.bob);
+        bob.setOnClickListener(s -> Toast.makeText(getContext(), "i am bob and wholesome end me pls", Toast.LENGTH_LONG).show());
     }
 }
