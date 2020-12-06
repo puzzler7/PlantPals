@@ -16,11 +16,14 @@ public class PlantModel {
     @ColumnInfo(name = "nickname")
     public String nickname;
 
+    @ColumnInfo(name = "type", defaultValue = "POPPY")
+    public String type;
+
     @ColumnInfo(name = "stage", defaultValue = "SEED")
     public String stage;
 
     @ColumnInfo(name = "health", defaultValue = "HEALTHY")
-    public String status;
+    public String health;
 
     @ColumnInfo(name = "droplets")//, defaultValue = 0)
     public int droplets;
