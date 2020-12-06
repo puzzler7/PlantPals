@@ -3,6 +3,8 @@ package com.tabs.tabs.gui;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -10,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -156,6 +159,35 @@ public class PlantFocusActivity extends AppCompatActivity {
 
         ImageButton delete = findViewById(R.id.delete);
         //delete.setOnClickListener();
+
+        ImageButton notes = findViewById(R.id.notes);
+        notes.setOnClickListener(s->{
+            final Plant thisPlant;
+            if (pager.getCurrentItem() < plantList.size()) {
+                thisPlant = plantList.get(pager.getCurrentItem());
+            } else {
+                thisPlant = new Plant();
+            }
+            ConstraintLayout notesLayout = findViewById(R.id.notes_layout);
+            TextView title = notesLayout.findViewById(R.id.notes_title);
+            title.setText(String.format("Notes on %s:", thisPlant.getProfile().getName()));
+            EditText editText = notesLayout.findViewById(R.id.notes_text);
+            if (thisPlant.getProfile().getNotes().size() == 0) {
+                thisPlant.getProfile().addNote("");
+            }
+            editText.setText(thisPlant.getProfile().getNotes().get(0));
+            if(editText.requestFocus()) {
+                getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+            }
+            notesLayout.setVisibility(View.VISIBLE);
+            editText.setOnFocusChangeListener((v, hasFocus)-> {
+                if (!hasFocus) {
+                    thisPlant.getProfile().getNotes().set(0, editText.getText().toString());
+                    getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+                    notesLayout.setVisibility(View.GONE);
+                }
+            });
+        });
 
     }
 

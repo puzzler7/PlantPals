@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -27,6 +28,7 @@ public class PlantFocusFragment extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.plant_focus_fragment, container, false);
         ImageView img = rootView.findViewById(R.id.img);
         EditText name = rootView.findViewById(R.id.name);
+
         EditText subtitle = rootView.findViewById(R.id.subtitle);
         //ImageView prof = rootView.findViewById(R.id.profile_pic);
 
@@ -35,7 +37,25 @@ public class PlantFocusFragment extends Fragment {
 
         img.setImageResource(getContext().getResources().getIdentifier(plant.getFileName(), "drawable", getContext().getPackageName()));
         name.setText(plant.getProfile().getName());
+        if(name.requestFocus()) {
+            getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        }
+        name.setOnFocusChangeListener((v, hasFocus)-> {
+            if (!hasFocus) {
+                plant.getProfile().setName(name.getText().toString());
+                getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+            }
+        });
         subtitle.setText(plant.getProfile().getSubtitle());
+        if(subtitle.requestFocus()) {
+            getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        }
+        subtitle.setOnFocusChangeListener((v, hasFocus)-> {
+            if (!hasFocus) {
+                plant.getProfile().setSubtitle(subtitle.getText().toString());
+                getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+            }
+        });
         //prof.setImageResource(getContext().getResources().getIdentifier("oval", "drawable", getContext().getPackageName()));
 
         return rootView;

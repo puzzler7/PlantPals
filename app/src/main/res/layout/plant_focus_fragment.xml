@@ -3,20 +3,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusable="true"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:id="@+id/plantcard">
 
         <ImageView
             android:id="@+id/img"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/backgroundBrown"
+            android:background="@null"
             android:layout_centerHorizontal="true"
             android:scaleType="centerCrop"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:src="@drawable/cutecactus" />
 
         <EditText

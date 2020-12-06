@@ -13,7 +13,9 @@ public class Profile {
     public Profile() {
         setName("Tyler");
         setSubtitle("Nothing he can do about it");
-        setNotes(new ArrayList<String>());
+        ArrayList<String> stAr = new ArrayList<>();
+        stAr.add("");
+        setNotes(stAr);
     }
 
     public Profile(String name, String subtitle, List<String> notes) {
@@ -43,7 +45,7 @@ public class Profile {
     }
 
     public void setNotes(List<String> notes) {
-        personNotes = notes;
+        personNotes = new ArrayList<>(notes);
     }
 
     public List<String> getNotes() {
