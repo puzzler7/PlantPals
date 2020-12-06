@@ -1,5 +1,6 @@
 package com.tabs.tabs.gui;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,10 +13,14 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
 import com.tabs.tabs.R;
+import com.tabs.tabs.database.AppDatabase;
+import com.tabs.tabs.database.PlantModel;
 import com.tabs.tabs.plants.Health;
 import com.tabs.tabs.plants.Plant;
+import com.tabs.tabs.plants.PlantHelper;
 import com.tabs.tabs.plants.PlantType;
 import com.tabs.tabs.plants.Profile;
 import com.tabs.tabs.plants.Stage;
@@ -40,6 +45,7 @@ public class GardenFragment extends Fragment {
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
+        /*
         if (!init) {
             init = true;
             plants = new ArrayList<>();
@@ -48,6 +54,16 @@ public class GardenFragment extends Fragment {
                 Plant p = new Plant(PlantType.POPPY, new Status(Stage.values()[i % Stage.values().length].getStage(), Health.values()[i % Health.values().length].getHealth()), new Profile());
                 Log.i("gardenfragment", p.getFileName());
                 plants.add(p);
+            }
+        }
+
+         */
+        if(!init) {
+            init = true;
+            plants = new ArrayList<>();
+            AppDatabase db = Room.databaseBuilder(getActivity().getApplicationContext(), AppDatabase.class, "plant_db").allowMainThreadQueries().build();
+            for(PlantModel pm : db.PlantDao().getAll()) {
+                plants.add(PlantHelper.makePlant(pm));
             }
         }
         // Inflate the layout for this fragment

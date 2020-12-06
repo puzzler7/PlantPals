@@ -34,7 +34,7 @@ public class Plant implements Parcelable {
 
     // CONSTRUCTOR FROM THE DATABASE
 
-    /*
+
     public Plant(int id, PlantType pt, Status s, Profile p, long createdAt, long lastWater, int numberOfWaters) {
         uid = id;
         myPlantType = pt;
@@ -43,7 +43,7 @@ public class Plant implements Parcelable {
         whenCreated = createdAt;
         this.lastWater = lastWater;
         this.numberOfWaters = numberOfWaters;
-    }*/
+    }
 
     public Plant(PlantType pt, Status s, Profile p) {
         myPlantType = pt;
@@ -60,7 +60,7 @@ public class Plant implements Parcelable {
     public Plant makePlant(PlantModel pm) {
 
         uid = pm.id;
-        myStatus = new Status(pm.status, pm.stage);
+        myStatus = new Status(pm.stage, pm.health);
 
         myProfile = makeProfile(pm.name, pm.nickname, pm.notes);
         lastWater = pm.last_watered;
@@ -73,7 +73,8 @@ public class Plant implements Parcelable {
     public PlantModel makePlantModel() {
         PlantModel pm = new PlantModel();
         pm.id = uid;
-        pm.status = myStatus.getHealth().getHealth();
+        pm.type = myPlantType.getPlantType();
+        pm.health = myStatus.getHealth().getHealth();
         pm.stage = myStatus.getStage().getStage();
         pm.name = myProfile.getName();
         pm.nickname = myProfile.getSubtitle();
