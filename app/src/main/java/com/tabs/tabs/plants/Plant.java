@@ -184,12 +184,15 @@ public class Plant implements Parcelable {
     public void checkDecay() {
         long currentTime = System.currentTimeMillis() + days * ONE_DAY_MILLI;
         if(currentTime - lastWater > FOURTEEN_DAYS_MILLI && myStatus.getStage() != Stage.SEED && myStatus.getStage() != Stage.EMPTY) {
-            if(myStatus.getHealth() == Health.HEALTHY) {
+            if (myStatus.getHealth() == Health.HEALTHY) {
                 System.out.println("***BECOME WILT***");
                 myStatus.setHealth(Health.WILT);
-                lastWater = System.currentTimeMillis() + days * ONE_DAY_MILLI;
+                // lastWater = System.currentTimeMillis() + days * ONE_DAY_MILLI;
                 numberOfWaters = 0;
-            } else if (myStatus.getHealth() == Health.WILT) {
+            }
+        }
+        if(currentTime - lastWater > FOURTEEN_DAYS_MILLI * 2 && myStatus.getStage() != Stage.SEED && myStatus.getStage() != Stage.EMPTY){
+            if (myStatus.getHealth() == Health.WILT) {
                 if (myStatus.getStage() == Stage.BUD || myStatus.getStage() == Stage.FLOWER) {
                     System.out.println("***BECOME SAD***");
                     myStatus.setHealth(Health.SAD);
@@ -197,6 +200,11 @@ public class Plant implements Parcelable {
                 }
             }
         }
+    }
+
+    public long getDaysSinceWatered() {
+        long currentTime = System.currentTimeMillis() + days * ONE_DAY_MILLI;
+        return (currentTime - lastWater)/ONE_DAY_MILLI;
     }
 
     public Status getStatus() {
@@ -221,7 +229,7 @@ public class Plant implements Parcelable {
     }
 
     public long getLastWater() {
-        return lastWater;
+        return lastWater - (days * 86400000);
     }
 
     public Profile getProfile() {

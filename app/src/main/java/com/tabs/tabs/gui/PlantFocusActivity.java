@@ -96,7 +96,7 @@ public class PlantFocusActivity extends AppCompatActivity {
             if (currPlant[0].getHealth() == Health.WILT || currPlant[0].getHealth() == Health.SAD) {
                 BobLogic.focusPageSetBob(101, currPlant[0].getProfile().getName());
             } else {
-                long daysDiff = (System.currentTimeMillis() - currPlant[0].getLastWater())/86400000;
+                long daysDiff = currPlant[0].getDaysSinceWatered();
                 BobLogic.focusPageSetBob(111, ("" + daysDiff));
             }
         });
@@ -133,7 +133,10 @@ public class PlantFocusActivity extends AppCompatActivity {
         ImageButton daySkip = findViewById(R.id.day_skip);
         daySkip.setOnClickListener(s -> {
             currPlant[0].setDays(currPlant[0].getDays()+1);
-            currPlant[0].checkDecay();
+            // currPlant[0].checkDecay();
+            for(Plant p : plantList) {
+                p.checkDecay();
+            }
             System.out.println("\tincrement---");
             adapter.notifyDataSetChanged();
             drawMethods.get(pager.getCurrentItem()).run();
@@ -152,6 +155,8 @@ public class PlantFocusActivity extends AppCompatActivity {
                     currPlant[0].getStatus().setStage(Stage.SEED);
                     plantList.add(currPlant[0]);
                 }
+//                adapter.notifyDataSetChanged();
+//                drawMethods.get(pager.getCurrentItem()).run();
             }
 
             @Override
@@ -162,6 +167,9 @@ public class PlantFocusActivity extends AppCompatActivity {
             @Override
             public void onPageScrollStateChanged(int state) {
                 //do nothing
+                currPlant[0] = plantList.get(pager.getCurrentItem());
+                adapter.notifyDataSetChanged();
+                drawMethods.get(pager.getCurrentItem()).run();
             }
         });
 

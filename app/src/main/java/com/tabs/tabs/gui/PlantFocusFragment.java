@@ -74,7 +74,7 @@ public class PlantFocusFragment extends Fragment {
         //prof.setImageResource(getContext().getResources().getIdentifier("oval", "drawable", getContext().getPackageName()));
 
         TextView daysWater = rootView.findViewById(R.id.days_since_watered);
-        long daysDiff = (System.currentTimeMillis() - plant.getLastWater())/86400000;
+        long daysDiff = plant.getDaysSinceWatered();
         if (plant.getLastWater() == 0) {
             daysWater.setText(getString(R.string.zero_day_water));
         } else if (daysDiff == 1) {
