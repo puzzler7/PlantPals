@@ -4,11 +4,15 @@ import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.tabs.tabs.database.AppDatabase;
+import com.tabs.tabs.database.MockDatabase;
+import com.tabs.tabs.database.PlantModel;
 import com.tabs.tabs.gui.BobLogic;
 import com.tabs.tabs.plants.Plant;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.room.Room;
 
 import android.view.View;
 
@@ -33,6 +37,19 @@ public class MainActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+    @Override
+    protected void onStop() {
+        AppDatabase db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "plant_db").allowMainThreadQueries().build();
+        db.PlantDao().deleteAll();
+        for (int i = 0; i < MockDatabase.getPlants().size(); i++) {
+            Plant p = MockDatabase.getPlants().get(i);
+            PlantModel pm = p.makePlantModel();
+            pm.id = i+1;
+            db.PlantDao().insert(pm);
+        }
+        super.onStop();
     }
 
     @Override

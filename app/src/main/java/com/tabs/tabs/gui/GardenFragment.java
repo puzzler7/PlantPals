@@ -31,6 +31,8 @@ import com.tabs.tabs.plants.Stage;
 import com.tabs.tabs.plants.Status;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class GardenFragment extends Fragment {
@@ -60,9 +62,13 @@ public class GardenFragment extends Fragment {
                 plants.add(PlantHelper.makePlant(pm));
             }
             //fake plant
-            for (int i = 0; i < 10; i++) {
-                Plant p = new Plant(PlantType.POPPY, new Status(Stage.SAPLING.getStage(), Health.HEALTHY.getHealth()), new Profile());
-                plants.add(p);
+            if (plants.size() <= 0) { // make fake plants if empty
+                for (int i = 0; i < 10; i++) {
+                    Plant p = new Plant(PlantType.POPPY, new Status(Stage.SAPLING.getStage(), Health.HEALTHY.getHealth()), new Profile());
+                    plants.add(p);
+                }
+            } else {
+                Collections.sort(plants, Comparator.comparing(Plant::getUID));
             }
             for (Plant p: plants) {
                 p.checkDecay();
