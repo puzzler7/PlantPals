@@ -39,12 +39,14 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.ViewHolder> 
             super(view);
             // Define click listener for the ViewHolder's View
 
-            img = view.findViewById(R.id.img);
+            img = view.findViewById(R.id.plant_img);
         }
 
         public ImageView getImageView() {
             return img;
         }
+
+        //TODO: getters for image views and text views
     }
 
     public PlantAdapter(ArrayList<Plant> plts) {
@@ -80,6 +82,8 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.ViewHolder> 
                 getContext().startActivity(intent);
             }
         });
+
+        //TODO: SET IMAGE AND ETC
     }
 
     // Return the size of your dataset (invoked by the layout manager)
