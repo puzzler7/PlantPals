@@ -77,8 +77,9 @@ public class PlantFocusActivity extends AppCompatActivity {
             if (currPlant[0].getHealth() == Health.WILT || currPlant[0].getHealth() == Health.SAD) {
                 BobLogic.focusPageSetBob(101, currPlant[0].getProfile().getName());
             } else {
-                //FIXME: SCROLLING BUG AND DAY 0? edge case
-                if (currPlant[0].getLastWater() != 0) {
+                if (currPlant[0].getLastWater() == 0) {
+                    BobLogic.focusPageSetBob(121, currPlant[0].getProfile().getName());
+                } else {
                     long daysDiff = (System.currentTimeMillis() - currPlant[0].getLastWater()) / 86400000;
                     BobLogic.focusPageSetBob(111, ("" + daysDiff));
                 }
@@ -115,10 +116,11 @@ public class PlantFocusActivity extends AppCompatActivity {
         water.setOnClickListener(s -> {
             long millisDiff = (System.currentTimeMillis() - currPlant[0].getLastWater());
             if (millisDiff < 57600000) {
-                BobLogic.focusPageSetBob(171, "");
+                BobLogic.focusPageSetBob(171, currPlant[0].getProfile().getName());
             }
+            currPlant[0].water();
         });
-
+        
         pager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
 //        pager.addOnPage(new ViewPager.OnPageChangeListener() {
             @Override
@@ -156,7 +158,7 @@ public class PlantFocusActivity extends AppCompatActivity {
         exit.setOnClickListener(s->finish());
 
         ImageButton waterBucket = findViewById(R.id.water);
-        waterBucket.setOnClickListener(s-> currPlant[0].water());
+//        waterBucket.setOnClickListener(s-> currPlant[0].water());
 
         ImageButton delete = findViewById(R.id.delete);
         //delete.setOnClickListener();

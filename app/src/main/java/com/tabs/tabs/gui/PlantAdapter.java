@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -38,6 +39,7 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.ViewHolder> 
      */
     public class ViewHolder extends RecyclerView.ViewHolder {
         private final ImageView img;
+        private final TextView name;
         //private final ImageView profileView;
 
         public ViewHolder(View view) {
@@ -45,11 +47,16 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.ViewHolder> 
             // Define click listener for the ViewHolder's View
 
             img = view.findViewById(R.id.plant_img);
+            name = view.findViewById(R.id.plant_name);
             //profileView = view.findViewById(R.id.profile_pic);
         }
 
         public ImageView getImageView() {
             return img;
+        }
+
+        public TextView getTextView() {
+            return name;
         }
 
 //        public ImageView getProfileView() {
@@ -102,6 +109,7 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.ViewHolder> 
         int id = context.getResources().getIdentifier(currPlant.getFileName(), "drawable", context.getPackageName());
         System.out.println(currPlant.getFileName() + ": " + id);
         viewHolder.getImageView().setImageResource(id);
+        viewHolder.getTextView().setText(currPlant.getProfile().getName());
 
         //viewHolder.getProfileView().setImageResource(R.drawable.oval);
     }
