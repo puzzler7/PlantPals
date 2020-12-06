@@ -26,6 +26,7 @@ import com.tabs.tabs.R;
 import com.tabs.tabs.database.MockDatabase;
 import com.tabs.tabs.plants.Health;
 import com.tabs.tabs.plants.Plant;
+import com.tabs.tabs.plants.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -120,7 +121,7 @@ public class PlantFocusActivity extends AppCompatActivity {
             }
             currPlant[0].water();
         });
-        
+
         pager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
 //        pager.addOnPage(new ViewPager.OnPageChangeListener() {
             @Override
@@ -131,16 +132,14 @@ public class PlantFocusActivity extends AppCompatActivity {
                     currPlant[0] = plantList.get(pager.getCurrentItem());
                 } else {
                     currPlant[0] = new Plant();
+                    currPlant[0].getStatus().setStage(Stage.SEED);
+                    plantList.add(currPlant[0]);
                 }
             }
 
             @Override
             public void onPageSelected(int position) {
-//                Bundle bundle = new Bundle();
-//                bundle.putInt("image_position", position);
-//                bundle.putString("image", imageLinks.get(position));
-//                mFirebaseAnalytics.logEvent("gallery_scroll", bundle);
-//                setTitleText(position);
+                //do nothing
             }
 
             @Override
