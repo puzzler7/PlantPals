@@ -19,15 +19,21 @@
     <string name="spam_water_can">
         I noticed that you watered %1$s a lot recently, I’m glad your friendship is going strong. Remember though, relationships take time to grow, just like plants!
     </string>
+    
     <string name="bob_introduction">Hi there! What can I help you with today?</string>
-    <string name="bob_option_addgrow_plant">
+    <string name="bob_option_addgrow_plant">How do I grow a plant?</string>
+    <string name="bob_option_addgrow_plant2">
         You can add a new plant, or grow a seed, by clicking on an empty pot. Each time you catch up with your friend, remember to come back and water the plant. Happy growing!
     </string>
-    <string name="bob_option_wilt">
+    <string name="bob_option_wilt">What do I do if my plant wilts?</string>
+    <string name="bob_option_wilt2">
         "Have you noticed your plants wilting? That’s what happens when you haven’t watered them in a while. This is a good reminder to schedule brunch to catch up or send a \“How are you doing?\” text to keep your friendship going strong!"
     </string>
-    <string name="bob_option_del_plant">"I’m sorry to hear that there’s a plant you want to remove. Go to the plant’s page and click on the shovel icon. I’ll take care of it from there."</string>
-    <string name="bob_option_encourage">Staying connected to friends will help you lower stress, find support, and stay healthy!</string>
+    <string name="bob_option_del_plant">How do I remove a plant?</string>
+    <string name="bob_option_del_plant2">"I’m sorry to hear that there’s a plant you want to remove. Go to the plant’s page and click on the shovel icon. I’ll take care of it from there."</string>
+    <string name="bob_option_encourage">Got any advice?</string>
+    <string name="bob_option_encourage2">Staying connected to friends will help you lower stress, find support, and stay healthy!</string>
+    
     <string name="bob_plant_wilt">Oh no your plant is wilting! Remember to catch up with %1$s soon, and then water your plant by clicking the water jug icon!</string>
     <string name="bob_plant_congrats">Wow! Your plant looks healthy. Cheers to %1$d days of friendship.</string>
 
