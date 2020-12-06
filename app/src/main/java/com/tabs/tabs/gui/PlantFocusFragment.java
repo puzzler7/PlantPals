@@ -75,7 +75,7 @@ public class PlantFocusFragment extends Fragment {
 
         TextView daysWater = rootView.findViewById(R.id.days_since_watered);
         long daysDiff = plant.getDaysSinceWatered();
-        if (plant.getLastWater() == 0) {
+        if (plant.getLastWater() % 86400000 == 0) {
             daysWater.setText(getString(R.string.zero_day_water));
         } else if (daysDiff == 1) {
             daysWater.setText(getString(R.string.day_since_water));
