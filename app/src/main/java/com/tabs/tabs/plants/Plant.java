@@ -5,15 +5,17 @@ import android.os.Parcelable;
 
 public class Plant implements Parcelable {
 
-    private int uid;
+    private int uid; //TODO: UID CALCULATION?
+        //TODO: GETTERS AND SETTERS FOR WHEN CREATE
     private PlantType myPlantType;
     private Status myStatus;
     private Profile myProfile;
-    private long whenCreated = 0;       //need to actually set this to currentTime on init
-    private long lastWater = 0;         //need to actually set this to currentTime on init
+    private long whenCreated = 0;       //TODO: need to actually set this to currentTime on init
+        //TODO: GETTERS AND SETTERS FOR WHEN CREATE
+    private long lastWater = 0;         //TODO: need to actually set this to currentTime on init
     private int numberOfWaters = 0;
 
-    //Debug
+    //For Debug Purposes
     private static int days = 0;
 
     private static long SIXTEEN_HOURS_MILLI = 57600000;
@@ -24,7 +26,7 @@ public class Plant implements Parcelable {
     private static int TO_BUD = 7;
     private static int TO_FLOWER = 14;
 
-
+    //TODO: INIT CONSTRUCTOR VS. LOAD/RECREATE CONSTRUCTOR
 
     public Plant(PlantType pt, Status s, Profile p) {
         myPlantType = pt;
@@ -60,8 +62,8 @@ public class Plant implements Parcelable {
          * dest.writeString(myStatus.getHealth().getHealth());
          * dest.writeString(myProfile.writeProfile());
          */
+        //TODO: ADD UID, WHEN CREATED
         myPlantType = PlantType.valueOf(in.readString());
-//        myStatus = Status.valueOf(in.readString()); //fix if bad
         myStatus = Status.SEED;
         Stage newStage = Stage.valueOf(in.readString());
         Health newHealth = Health.valueOf(in.readString());
@@ -75,8 +77,8 @@ public class Plant implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        //TODO: ADD UID, WHEN CREATED
         dest.writeString(myPlantType.getPlantType());
-//        dest.writeString(myStatus.name());
         dest.writeString(myStatus.getStage().getStage());
         dest.writeString(myStatus.getHealth().getHealth());
         dest.writeString(myProfile.writeProfile());
@@ -86,7 +88,7 @@ public class Plant implements Parcelable {
 
     @Override
     public int describeContents() {
-        return 0; //TODO: ???
+        return 0;
     }
 
     public static final Creator<Plant> CREATOR = new Creator<Plant>() {
