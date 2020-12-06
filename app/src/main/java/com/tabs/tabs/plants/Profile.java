@@ -1,6 +1,7 @@
 package com.tabs.tabs.plants;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Profile {
@@ -47,6 +48,25 @@ public class Profile {
 
     public List<String> getNotes() {
         return personNotes;
+    }
+
+    private static String delim = "___";
+
+    public String writeProfile() {
+        String ret = personName + delim + subtitle;
+        for (String s: personNotes) {
+            ret += delim + s;
+        }
+        return ret;
+    }
+
+    public static Profile readProfile(String in) {
+        String[] splitted = in.split(delim);
+        String name = splitted[0];
+        String sub = splitted[1];
+        String[] notes = Arrays.copyOfRange(splitted, 2, splitted.length);
+        List<String> notesList = Arrays.asList(notes);
+        return new Profile(name, sub, notesList);
     }
 
 }
