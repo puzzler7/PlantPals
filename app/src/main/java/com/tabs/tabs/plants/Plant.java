@@ -62,9 +62,10 @@ public class Plant implements Parcelable {
     public Plant makePlant(PlantModel pm) {
 
         uid = pm.id;
-        myStatus = Status.SEED;
-        myStatus.setHealth(Health.valueOf(pm.status));
-        myStatus.setStage(Stage.valueOf(pm.stage));
+//        myStatus = Status.SEED;
+//        myStatus.setHealth(Health.valueOf(pm.status));
+//        myStatus.setStage(Stage.valueOf(pm.stage));
+        myStatus = new Status(pm.status, pm.stage);
 
         myProfile = makeProfile(pm.name, pm.nickname, pm.notes);
         lastWater = pm.last_watered;
@@ -100,11 +101,12 @@ public class Plant implements Parcelable {
 
         uid = in.readInt();
         myPlantType = PlantType.valueOf(in.readString());
-        myStatus = new Status(Stage.SEED.getStage(), Health.HEALTHY.getHealth());
+//        myStatus = new Status(Stage.SEED.getStage(), Health.HEALTHY.getHealth());
         Stage newStage = Stage.valueOf(in.readString());
         Health newHealth = Health.valueOf(in.readString());
-        myStatus.setStage(newStage);
-        myStatus.setHealth(newHealth);
+//        myStatus.setStage(newStage);
+//        myStatus.setHealth(newHealth);
+        myStatus = new Status(newStage.getStage(), newHealth.getHealth());
 //        System.out.println("myStatus = " + myStatus.getFilename());
 
         myProfile = Profile.readProfile(in.readString()); //___ is grrrr
