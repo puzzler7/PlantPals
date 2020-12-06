@@ -119,7 +119,10 @@ public class BobLogic {
         focusSimpleText = focusSimple;
         focusConfirm = focusYes;
         focusCancel = focusNo;
+        focusSimpleText.setVisibility(View.GONE);
         focusBobText.setVisibility(View.GONE);
+        focusConfirm.setVisibility(View.GONE);
+        focusCancel.setVisibility(View.GONE);
         convoNum = 0;
     }
 
