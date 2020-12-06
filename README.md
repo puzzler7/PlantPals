@@ -1,5 +1,9 @@
 # Plant Pals
 
+## Youtube Video
+
+https://www.youtube.com/watch?v=JOjejEdH65w
+
 ## Inspiration
 Within the last few months, a lot of us have felt the impact of social isolation in the pandemic, especially due to the virtual semester. As it turns out, loneliness and social isolation is a much larger issue, which is linked to increased risk for obesity and premature death. It also becomes more difficult to maintain friendships into adulthood due to changing responsibilities. We recently found the time to reflect on the relationships we’ve made in college, and the friends from high school that we’ve lost contact with. We realized that we neglected to check in with those people and really wanted to reconnect. 
 
