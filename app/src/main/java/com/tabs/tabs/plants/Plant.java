@@ -166,6 +166,7 @@ public class Plant implements Parcelable {
      * Call when water bucket is clicked for the plant
      */
     public void water() {
+        System.out.println("---thanks for the water!---");
         long currentWater = System.currentTimeMillis() + days * ONE_DAY_MILLI;
         if(currentWater - lastWater < SIXTEEN_HOURS_MILLI || myStatus.getStage() == Stage.EMPTY) return;
         else {

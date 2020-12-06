@@ -92,7 +92,7 @@ public class BobLogic {
     }
 
     public static void focusPageSetBob(int choice, String fill) {
-        System.out.println("CLICKED " + choice + "" + convoNum);
+//        System.out.println("CLICKED " + choice + "" + convoNum);
         pageNum = 2;
         if ((convoNum != 0 || choice == 0) && !(choice == 156 || choice == 161)) {
             convoNum = 0;
@@ -102,14 +102,14 @@ public class BobLogic {
             focusCancel.setVisibility(View.GONE);
         } else {
             convoNum = choice;
-            if (convoNum == 101 || convoNum == 111) {
+            if (convoNum == 101 || convoNum == 111 || convoNum == 121) {
                 setSimpleText(fill);
             } else if (convoNum == 151) {
                 setFocusTree();
             } else if (convoNum == 156 || convoNum == 161) {
                 setSimpleText("");
             } else if (convoNum == 171) {
-                setSimpleText("");
+                setSimpleText(fill);
             }
         }
     }
@@ -170,12 +170,14 @@ public class BobLogic {
                 focusSimpleText.setText(String.format(context.getString(R.string.bob_plant_wilt), fill));
             } else if (convoNum == 111) {
                 focusSimpleText.setText(String.format(context.getString(R.string.bob_plant_congrats), fill));
+            } else if (convoNum == 121) {
+                focusSimpleText.setText(String.format(context.getString(R.string.new_friend), fill));
             } else if (convoNum == 156) {
                 focusSimpleText.setText(context.getString(R.string.del_plant_yes));
             } else if (convoNum == 161) {
                 focusSimpleText.setText(context.getString(R.string.del_plant_no));
             } else if (convoNum == 171) {
-                focusSimpleText.setText(context.getString(R.string.spam_water_can));
+                focusSimpleText.setText(String.format(context.getString(R.string.spam_water_can), fill));
             } else {
                 focusSimpleText.setVisibility(View.GONE);
                 focusBobText.setVisibility(View.GONE);

@@ -35,4 +35,8 @@
     
     <string name="bob_plant_wilt">Oh no your plant is wilting! Remember to catch up with %1$s soon, and then water your plant by clicking the water jug icon!</string>
     <string name="bob_plant_congrats">Wow! Your plant looks healthy. Cheers to %1$s days of friendship.</string>
+    <string name="days_since_water">%s days since you last watered</string>
+    <string name="day_since_water">1 day since last water</string>
+    <string name="zero_day_water">You have not watered your plant</string>
+    <string name="new_friend">"It's fun to make new friends! Give %1$s some water to commemorate meeting them!"</string>
 </resources>

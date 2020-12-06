@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -57,6 +58,16 @@ public class PlantFocusFragment extends Fragment {
             }
         });
         //prof.setImageResource(getContext().getResources().getIdentifier("oval", "drawable", getContext().getPackageName()));
+
+        TextView daysWater = rootView.findViewById(R.id.days_since_watered);
+        long daysDiff = (System.currentTimeMillis() - plant.getLastWater())/86400000;
+        if (plant.getLastWater() == 0) {
+            daysWater.setText(getString(R.string.zero_day_water));
+        } else if (daysDiff == 1) {
+            daysWater.setText(getString(R.string.day_since_water));
+        } else {
+            daysWater.setText(getString(R.string.days_since_water));
+        }
 
         return rootView;
     }
