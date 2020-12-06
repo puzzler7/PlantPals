@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
@@ -24,7 +25,17 @@ public class PlantFocusFragment extends Fragment {
                              Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.plant_focus_fragment, container, false);
         ImageView img = rootView.findViewById(R.id.img);
-        img.setImageResource(getContext().getResources().getIdentifier("cutecactus", "drawable", getContext().getPackageName()));
+        TextView name = rootView.findViewById(R.id.name);
+        TextView subtitle = rootView.findViewById(R.id.subtitle);
+        ImageView prof = rootView.findViewById(R.id.profile_pic);
+
+//        img.setImageResource(getContext().getResources().getIdentifier("cutecactus", "drawable", getContext().getPackageName()));
+        System.out.println("MY FRAG FILENAME IS " + plant.getFileName());
+
+        img.setImageResource(getContext().getResources().getIdentifier(plant.getFileName(), "drawable", getContext().getPackageName()));
+        name.setText(plant.getProfile().getName());
+        subtitle.setText(plant.getProfile().getSubtitle());
+        prof.setImageResource(getContext().getResources().getIdentifier("oval", "drawable", getContext().getPackageName()));
 
         return rootView;
     }

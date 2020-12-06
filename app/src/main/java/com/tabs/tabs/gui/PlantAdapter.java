@@ -35,19 +35,23 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.ViewHolder> 
      */
     public class ViewHolder extends RecyclerView.ViewHolder {
         private final ImageView img;
+        private final ImageView profileView;
 
         public ViewHolder(View view) {
             super(view);
             // Define click listener for the ViewHolder's View
 
             img = view.findViewById(R.id.plant_img);
+            profileView = view.findViewById(R.id.profile_pic);
         }
 
         public ImageView getImageView() {
             return img;
         }
 
-        //TODO: getters for image views and text views
+        public ImageView getProfileView() {
+            return profileView;
+        }
     }
 
     public PlantAdapter(List<Plant> plts) {
@@ -77,14 +81,20 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.ViewHolder> 
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), PlantFocusActivity.class);
-                //intent.putStringArrayListExtra("links", new ArrayList<>(galleryImages));
-                intent.putExtra("total", getItemCount());
+//                intent.putStringArrayListExtra("links", new ArrayList<>(galleryImages));
+//                intent.putExtra("total", getItemCount());
+                intent.putParcelableArrayListExtra("plantList", new ArrayList<>(plants));
+                System.out.println("\t On click first 3:" +  plants.get(0).getFileName() + " " + plants.get(1).getFileName() + " " + plants.get(2).getFileName());
                 intent.putExtra("index", position);
                 getContext().startActivity(intent);
             }
         });
 
-        //TODO: SET IMAGE AND ETC
+        int id = context.getResources().getIdentifier(plants.get(position).getFileName(), "drawable", context.getPackageName());
+        System.out.println(plants.get(position).getFileName() + ": " + id);
+        viewHolder.getImageView().setImageResource(id);
+
+        viewHolder.getProfileView().setImageResource(R.drawable.oval);
     }
 
     // Return the size of your dataset (invoked by the layout manager)

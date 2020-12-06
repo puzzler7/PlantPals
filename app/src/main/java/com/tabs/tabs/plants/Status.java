@@ -1,24 +1,24 @@
 package com.tabs.tabs.plants;
 
-public enum Status {
-
-    EMPTY("EMPTY", "HEALTHY"),
-    SEED("SEED", "HEALTHY"),
-    SPROUT("SPROUT", "HEALTHY"),
-    SPROUT_WILT("SPROUT", "WILT"),
-    SAPLING("SAPLING", "HEALTHY"),
-    SAPLING_WILT("SAPLING", "WILT"),
-    BUD("BUD", "HEALTHY"),
-    BUD_WILT("BUD", "WILT"),
-    BUD_SAD("BUD", "SAD"),
-    FLOWER("FLOWER", "HEALTHY"),
-    FLOWER_WILT("FLOWER", "WILT"),
-    FLOWER_SAD("FLOWER", "SAD");
+public class Status {
+    
+//    EMPTY_HEALTHY("EMPTY", "HEALTHY"),
+//    SEED_HEALTHY("SEED", "HEALTHY"),
+//    SPROUT_HEALTHY("SPROUT", "HEALTHY"),
+//    SPROUT_WILT("SPROUT", "WILT"),
+//    SAPLING_HEALTHY("SAPLING", "HEALTHY"),
+//    SAPLING_WILT("SAPLING", "WILT"),
+//    BUD_HEALTHY("BUD", "HEALTHY"),
+//    BUD_WILT("BUD", "WILT"),
+//    BUD_SAD("BUD", "SAD"),
+//    FLOWER_HEALTHY("FLOWER", "HEALTHY"),
+//    FLOWER_WILT("FLOWER", "WILT"),
+//    FLOWER_SAD("FLOWER", "SAD");
 
     private Stage stage;
     private Health health;
 
-    Status(String stage, String health) {
+    public Status(String stage, String health) {
         this.stage = Stage.valueOf(stage);
         this.health = Health.valueOf(health);
     }
