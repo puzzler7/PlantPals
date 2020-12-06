@@ -6,4 +6,5 @@
     <color name="backgroundBrown">#FFFFFF</color>
     <color name="confirmGreen">#6AA84F</color>
     <color name="cancelRed">#A74B48</color>
+    <color name="black">#000000</color>
 </resources>
